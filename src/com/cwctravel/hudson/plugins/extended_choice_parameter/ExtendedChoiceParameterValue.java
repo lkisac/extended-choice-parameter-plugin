@@ -29,6 +29,7 @@ public class ExtendedChoiceParameterValue extends StringParameterValue{
 		super(name, value);
 		this.setAllCols(allCols);
 		this.setMultiLevelColumns(multiLevelColumns);
+		System.out.println(name + value + this.allCols + this.multiLevelColumns);
 	}
 
 	public Map<Integer, String> getAllCols() {

@@ -353,6 +353,7 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 		
 		if(value instanceof String) {
 			strValue = (String)value;
+			System.out.println("strValue: " + strValue);
 		}
 		else if(value instanceof JSONArray) {
 			int multiLevelColumns = 0;

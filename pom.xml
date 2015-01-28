@@ -31,6 +31,14 @@
                     <exclude>InjectedTest.java</exclude>
                 </excludes>
             </configuration>
+            <executions>
+                <execution>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>test</goal>
+                    </goals>
+                </execution>
+            </executions>            
         </plugin>
     </plugins>
 </build>
