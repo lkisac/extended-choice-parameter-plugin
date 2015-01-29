@@ -263,6 +263,7 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 			int visibleItemCount, String description, String multiSelectDelimiter) {
 		super(name, description);
 		this.type = type;
+		System.out.println("name: " + name);
 
 		this.value = value;
 		this.propertyFile = propertyFile;
@@ -350,6 +351,8 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 		Object value = jO.get("value");
 		String strValue = "";
 		Map<Integer, String> allCols = new HashMap<Integer, String>();		
+		System.out.println("value: " + value);
+		System.out.println("type: " + type);
 		
 		if(value instanceof String) {
 			strValue = (String)value;
