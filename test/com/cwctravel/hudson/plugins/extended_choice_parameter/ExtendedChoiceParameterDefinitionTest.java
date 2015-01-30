@@ -13,13 +13,17 @@ import java.util.logging.Logger;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 
+import hudson.EnvVars;
 import hudson.model.*;
+import hudson.slaves.EnvironmentVariablesNodeProperty;
 import hudson.tasks.Shell;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.ComparisonFailure;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -44,10 +48,10 @@ import net.sf.json.JSONObject;
  *
  */
 public class ExtendedChoiceParameterDefinitionTest {
-	private String name = "QA";
-	private String type = "PT_MULTI_LEVEL_MULTI_SELECT";
-	private String value = "{1:cfxunix,delinked,ALL:2:ifdev1,linked,aamqa:}";
-	private String propertyFile,
+	private static String name = "QA";
+	private static String type = "PT_MULTI_LEVEL_MULTI_SELECT";
+	private static String value = "{1:cfxunix,delinked,ALL:2:ifdev1,linked,aamqa:}";
+	private static String propertyFile,
 			groovyScript,
 			groovyScriptFile,
 			bindings,
@@ -58,23 +62,29 @@ public class ExtendedChoiceParameterDefinitionTest {
 			defaultGroovyScriptFile,
 			defaultBindings,
 			defaultPropertyKey = propertyFile = groovyScript = groovyScriptFile = bindings = propertyKey = defaultValue = defaultPropertyFile = defaultGroovyScript = defaultGroovyScriptFile = defaultBindings = "";
-	private boolean quoteValue = false;
-	private Integer visibleItemCount = 5;
-	private String description = "";
-	private String multiSelectDelimiter = ",";
-	ExtendedChoiceParameterDefinition obj;
+	private static boolean quoteValue = false;
+	private static Integer visibleItemCount = 5;
+	private static String description = "";
+	private static String multiSelectDelimiter = ",";
+	
+	// Class object - use to call ExtendedChoiceParameterDefinition methods
+	public static ExtendedChoiceParameterDefinition obj;
+	
+	// Used to call createValue(StaplerRequest, JSONObjecT)
 	StaplerRequest staplerObj;
 	JSONObject jsonObj = new JSONObject();
+
 	final WebClient webClient = new WebClient();
-	
-	// logger
-	Logger logger;
-	ConsoleHandler handler;
+
+	// Logger
+	public static Logger logger;
+	public static ConsoleHandler handler;
 
 	// mock creation
 	@Mock
 	ExtendedChoiceParameterDefinition mockedExtendedChoiceObj;
-	// ExtendedChoiceParameterDefinition mockedExtendedChoiceObj = mock(ExtendedChoiceParameterDefinition.class);
+	// ExtendedChoiceParameterDefinition mockedExtendedChoiceObj =
+	// mock(ExtendedChoiceParameterDefinition.class);
 	// StaplerRequest mockedStaplerObj = mock(StaplerRequest.class);
 	// JSONObject mockJsonObj = mock(JSONObject.class);
 
@@ -88,65 +98,98 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * 
 	 * @throws java.lang.Exception
 	 */
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		// ExtendedChoiceParameterDefinition object
-		this.obj = new ExtendedChoiceParameterDefinition(this.name, this.type, this.value,
-				this.propertyFile, this.groovyScript, this.groovyScriptFile, this.bindings,
-				this.propertyKey, this.defaultValue, this.defaultPropertyFile,
-				this.defaultGroovyScript, this.defaultGroovyScriptFile, this.defaultBindings,
-				this.defaultPropertyKey, this.quoteValue, this.visibleItemCount, this.description,
-				this.multiSelectDelimiter);
-		// System.out.println(this.obj);
+		obj = new ExtendedChoiceParameterDefinition(name, type, value,
+				propertyFile, groovyScript, groovyScriptFile, bindings,
+				propertyKey, defaultValue, defaultPropertyFile,
+				defaultGroovyScript, defaultGroovyScriptFile, defaultBindings,
+				defaultPropertyKey, quoteValue, visibleItemCount, description,
+				multiSelectDelimiter);
+		// System.out.println(obj);
 
-		this.logger = Logger.getLogger(ExtendedChoiceParameterDefinitionTest.class.getName());
-		this.handler = new ConsoleHandler();
-		this.logger.addHandler(handler);
+		logger = Logger.getLogger(ExtendedChoiceParameterDefinitionTest.class.getName());
+		handler = new ConsoleHandler();
+		logger.addHandler(handler);
 	}
 
-	@After
-	public void tearDown() throws Exception {
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
 		// TODO:
 	}
 
+	/**
+	 * Connect webClient to Jenkins Build page, if it successfully connects,
+	 * run a build and verify the result
+	 * @throws Exception
+	 */
 	@Test
 	public void testFirst() throws Exception {
-		final URL jenkinsURL = new URL("http://localhost:9090/job/Dynamic-Extended-Test/build?delay=0sec");
+		final URL jenkinsURL = new URL(
+				"http://localhost:9090/job/Dynamic-Extended-Test/build?delay=0sec");
 		HtmlPage page;
-		this.logger.info(jenkinsURL.toString());
+		logger.info(jenkinsURL.toString());
 		try {
 			page = webClient.getPage(jenkinsURL);
-			this.logger.info("page title = " + page.getTitleText());
+			logger.info("page title = " + page.getTitleText());
 			Assert.assertEquals("Jenkins", page.getTitleText());
-		}
-		catch (FailingHttpStatusCodeException e) {
+		} catch (FailingHttpStatusCodeException e) {
 			e.printStackTrace();
-			//System.exit(1);
+			// System.exit(1);
 		}
-		
+
 		FreeStyleProject project = j.createFreeStyleProject();
 		project.getBuildersList().add(new Shell("echo hello"));
 		FreeStyleBuild build = project.scheduleBuild2(0).get();
 		System.out.println(build.getDisplayName() + " completed");
 		String s = FileUtils.readFileToString(build.getLogFile());
-		this.logger.info("s = " + s + " <------------------------ s");
-		//Assert.assertThat("Contains string \"echo hello\"", s, containsString("Legacy code"));
-		//System.exit(0);
+		logger.info("s = " + s + " <------------------------ s");
+		// Assert.assertThat("Contains string \"echo hello\"", s,
+		// containsString("Legacy code"));
+		// System.exit(0);
 	}
 
+	/**
+	 * Simple test for multiple String declarations
+	 * @throws FailingHttpStatusCodeException
+	 * @throws IOException
+	 */
 	@Test
 	public void testSetMultipleStrings() throws FailingHttpStatusCodeException, IOException {
-		assertEquals("", this.defaultPropertyKey);
+		assertEquals("", defaultPropertyKey);
+		assertEquals("", groovyScript);
+		assertEquals("", groovyScriptFile);
+		assertEquals("", bindings);
+		assertEquals("", propertyKey);
+		assertEquals("", defaultValue);
+		assertEquals("", defaultPropertyFile);
+		assertEquals("", defaultGroovyScript);
+		assertEquals("", defaultGroovyScriptFile);
+		assertEquals("", defaultBindings);
+	}
+	
+	/**
+	 * Test Set Environment Variables
+	 * @throws IOException
+	 */
+	@Test
+	public void testSetEnvironmentVariables() throws IOException {
+		EnvironmentVariablesNodeProperty prop = new EnvironmentVariablesNodeProperty();
+		EnvVars envVars = prop.getEnvVars();
+		envVars.put("sampleEnvVarKey", "sampleEnvVarValue");
+		j.jenkins.getGlobalNodeProperties().add(prop);
+	}
+	
+	@Test
+	public void testMultiLevelSelectOutput() {
+		
 	}
 
-	/*
-	 * public void testSetEnvironmentVariables() throws IOException {
-	 * EnvironmentVariablesNodeProperty prop = new
-	 * EnvironmentVariablesNodeProperty(); EnvVars envVars = prop.getEnvVars();
-	 * envVars.put("sampleEnvVarKey", "sampleEnvVarValue");
-	 * j.jenkins.getGlobalNodeProperties().add(prop); }
+	/**
+	 * Test store multiple values algorithm inside createValue method
+	 * for successful expected output
 	 */
-
 	@Test
 	public void testStoreMultipleValues() {
 
@@ -161,7 +204,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 		allCols.put(4, "ifdev1");
 		allCols.put(5, "linked");
 		allCols.put(6, "aamqa");
-		this.logger.info("allCols: " + allCols);
+		logger.info("allCols: " + allCols);
 		Integer multiSelectTotal = 6;
 		Integer multiLevelColumns = 3;
 
@@ -181,6 +224,10 @@ public class ExtendedChoiceParameterDefinitionTest {
 		assertEquals(expectedStrCols, strCols.toString());
 	}
 
+	/**
+	 * Test store multiple values algorithm inside createValue method
+	 * for failed expected output
+	 */
 	@Test(expected = ComparisonFailure.class)
 	public void testStoreMultipleValuesFail() {
 
@@ -195,7 +242,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 		allCols.put(4, "ifdev1");
 		allCols.put(5, "linked");
 		allCols.put(6, "aamqa");
-		this.logger.info("allCols: " + allCols);
+		logger.info("allCols: " + allCols);
 		Integer multiSelectTotal = 6;
 		Integer multiLevelColumns = 2;
 
@@ -236,7 +283,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * {@link com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinition#createValue(org.kohsuke.stapler.StaplerRequest, net.sf.json.JSONObject)}
 	 * .
 	 */
-	// @Ignore("not ready yet")
+	@Ignore("not ready yet")
 	@Test
 	public void testCreateValueStaplerRequestJSONObject() {
 		Map<Integer, String> allCols = new HashMap<Integer, String>();
@@ -246,7 +293,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 		allCols.put(4, "ifdev1");
 		allCols.put(5, "linked");
 		allCols.put(6, "aamqa");
-		this.logger.info("allCols: " + allCols);
+		logger.info("allCols: " + allCols);
 
 		ExtendedChoiceParameterValue expectedObj = new ExtendedChoiceParameterValue("SDLC",
 				"1:cfxunix,delinked,ALL:2:ifdev1,linked,aamqa:", 6, allCols);
@@ -255,7 +302,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 
 		jsonObj.put("key", "value");
 		// assertSame(expectedObj1, obj.createValue(staplerObj, jsonObj));
-		this.logger.info("jsonObj: " + jsonObj.toString());
+		logger.info("jsonObj: " + jsonObj.toString());
 		assertEquals("{\"key\":\"value\"}", jsonObj.toString());
 	}
 
