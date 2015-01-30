@@ -73,10 +73,9 @@ public class ExtendedChoiceParameterDefinitionTest {
 	private static HtmlForm form = null;
 	private static HtmlPage page = null;
 
-	// Jenkins login credentials	
-	final private String userName = "lisac";
-	final private String passWord = "123456";
-	final private String fullName = "Len Isac";
+	// Jenkins login credentials
+	final private String userName = "admin";
+	final private String passWord = "admin";
 
 	// Logger
 	public static Logger logger;
@@ -148,7 +147,6 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 */
 	@Test
 	public void testTwo() throws IOException {
-		// Login
 		form = page.getFormByName("login");
 		form.getInputByName("j_username").setValueAttribute(userName);
 		form.getInputByName("j_password").setValueAttribute(passWord);
@@ -160,15 +158,9 @@ public class ExtendedChoiceParameterDefinitionTest {
 
 		final HtmlElement submitButton = form.getInputByName("submitIt");
 		page = submitButton.click();
-		final HtmlElement loginField = page.getFirstByXPath("//a/@href");
-		
-		logger.info(loginField.toString());
-		System.exit(0);
-		
-		if (loginField == null || !loginField.getTextContent().contains(fullName))
-			throw new RuntimeException("Unable to log on to Jenkins. "); 
-		System.out.println("Logged in! ");
-		System.in.read();
+
+		Assert.assertTrue((Boolean) page.getFirstByXPath("//a/@href='/user/admin'"));
+		Assert.assertTrue((Boolean) page.getFirstByXPath("//a/@href='/logout'"));
 	}
 
 	/**
@@ -176,6 +168,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * 
 	 * @throws Exception
 	 */
+	@Ignore
 	@Test
 	public void testFreeStyleProjectBuild() throws Exception {
 	}
@@ -187,6 +180,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * @throws FailingHttpStatusCodeException
 	 * @throws IOException
 	 */
+	@Ignore
 	@Test
 	public void testSetMultipleStrings() throws FailingHttpStatusCodeException, IOException {
 		Assert.assertEquals("", defaultPropertyKey);
@@ -206,6 +200,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * 
 	 * @throws IOException
 	 */
+	@Ignore
 	@Test
 	public void testSetEnvironmentVariables() throws IOException {
 		EnvironmentVariablesNodeProperty prop = new EnvironmentVariablesNodeProperty();
@@ -214,6 +209,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 		j.jenkins.getGlobalNodeProperties().add(prop);
 	}
 
+	@Ignore
 	@Test
 	public void testMultiLevelSelectOutput() {
 
@@ -223,6 +219,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * Test store multiple values algorithm inside createValue method for
 	 * successful expected output
 	 */
+	@Ignore
 	@Test
 	public void testStoreMultipleValues() {
 
@@ -261,6 +258,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * Test store multiple values algorithm inside createValue method for failed
 	 * expected output
 	 */
+	@Ignore
 	@Test(expected = ComparisonFailure.class)
 	public void testStoreMultipleValuesFail() {
 
