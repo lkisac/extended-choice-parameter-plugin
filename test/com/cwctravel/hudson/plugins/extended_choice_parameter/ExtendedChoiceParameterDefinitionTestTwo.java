@@ -1,27 +1,39 @@
 /**
- * 
+ * This Test Class will use mock objects
  */
 package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import static org.junit.Assert.*;
 
+import org.easymock.EasyMock;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+//import org.mockito.Mock;
 
 /**
- * @author if993276
+ * @author lkisac
  *
  */
 public class ExtendedChoiceParameterDefinitionTestTwo {
 
+	// mock creation
+	//@Mock
+	private static ExtendedChoiceParameterDefinition mockedExtendedChoiceObj = EasyMock.createMock(ExtendedChoiceParameterDefinition.class);
+	
+	@Test
+	public void testLogin() {
+		
+	}
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+
 	}
 
 	/**

@@ -3,8 +3,6 @@
  */
 package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -19,26 +17,22 @@ import hudson.slaves.EnvironmentVariablesNodeProperty;
 import hudson.tasks.Shell;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ComparisonFailure;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.kohsuke.stapler.StaplerRequest;
-import org.mockito.Mock;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.recipes.LocalData;
-
-import static org.mockito.Mockito.*;
-import static org.hamcrest.Matchers.containsString;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import net.sf.json.JSONObject;
@@ -66,27 +60,27 @@ public class ExtendedChoiceParameterDefinitionTest {
 	private static Integer visibleItemCount = 5;
 	private static String description = "";
 	private static String multiSelectDelimiter = ",";
-	
+
 	// Class object - use to call ExtendedChoiceParameterDefinition methods
 	public static ExtendedChoiceParameterDefinition obj;
-	
+
 	// Used to call createValue(StaplerRequest, JSONObjecT)
 	StaplerRequest staplerObj;
 	JSONObject jsonObj = new JSONObject();
 
-	final WebClient webClient = new WebClient();
+	private static final WebClient webClient = new WebClient(BrowserVersion.CHROME);
+	private static URL jenkinsURL = null;
+	private static HtmlForm form = null;
+	private static HtmlPage page = null;
+
+	// Jenkins login credentials	
+	final private String userName = "lisac";
+	final private String passWord = "123456";
+	final private String fullName = "Len Isac";
 
 	// Logger
 	public static Logger logger;
 	public static ConsoleHandler handler;
-
-	// mock creation
-	@Mock
-	ExtendedChoiceParameterDefinition mockedExtendedChoiceObj;
-	// ExtendedChoiceParameterDefinition mockedExtendedChoiceObj =
-	// mock(ExtendedChoiceParameterDefinition.class);
-	// StaplerRequest mockedStaplerObj = mock(StaplerRequest.class);
-	// JSONObject mockJsonObj = mock(JSONObject.class);
 
 	// Rule
 	@Rule
@@ -101,13 +95,10 @@ public class ExtendedChoiceParameterDefinitionTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		// ExtendedChoiceParameterDefinition object
-		obj = new ExtendedChoiceParameterDefinition(name, type, value,
-				propertyFile, groovyScript, groovyScriptFile, bindings,
-				propertyKey, defaultValue, defaultPropertyFile,
-				defaultGroovyScript, defaultGroovyScriptFile, defaultBindings,
-				defaultPropertyKey, quoteValue, visibleItemCount, description,
-				multiSelectDelimiter);
-		// System.out.println(obj);
+		obj = new ExtendedChoiceParameterDefinition(name, type, value, propertyFile, groovyScript,
+				groovyScriptFile, bindings, propertyKey, defaultValue, defaultPropertyFile,
+				defaultGroovyScript, defaultGroovyScriptFile, defaultBindings, defaultPropertyKey,
+				quoteValue, visibleItemCount, description, multiSelectDelimiter);
 
 		logger = Logger.getLogger(ExtendedChoiceParameterDefinitionTest.class.getName());
 		handler = new ConsoleHandler();
@@ -117,60 +108,102 @@ public class ExtendedChoiceParameterDefinitionTest {
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		// TODO:
+		logger.info("done testing");
 	}
 
 	/**
 	 * Connect webClient to Jenkins Build page, if it successfully connects,
-	 * run a build and verify the result
+	 * verify that the page title is "Jenkins"
+	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void testFirst() throws Exception {
-		final URL jenkinsURL = new URL(
-				"http://localhost:9090/job/Dynamic-Extended-Test/build?delay=0sec");
-		HtmlPage page;
+	public void testOne() throws Exception {
+		jenkinsURL = new URL("http://localhost:9090/login");
 		logger.info(jenkinsURL.toString());
-		try {
-			page = webClient.getPage(jenkinsURL);
-			logger.info("page title = " + page.getTitleText());
-			Assert.assertEquals("Jenkins", page.getTitleText());
-		} catch (FailingHttpStatusCodeException e) {
-			e.printStackTrace();
-			// System.exit(1);
-		}
 
-		FreeStyleProject project = j.createFreeStyleProject();
-		project.getBuildersList().add(new Shell("echo hello"));
-		FreeStyleBuild build = project.scheduleBuild2(0).get();
-		System.out.println(build.getDisplayName() + " completed");
-		String s = FileUtils.readFileToString(build.getLogFile());
-		logger.info("s = " + s + " <------------------------ s");
+		// Get Jenkins login page
+		page = webClient.getPage(jenkinsURL);
+		logger.info("page title = " + page.getTitleText());
+		Assert.assertEquals("Jenkins", page.getTitleText());
+
+		// FreeStyleProject project = j.createFreeStyleProject();
+		// project.getBuildersList().add(new Shell("echo hello"));
+		// FreeStyleBuild build = project.scheduleBuild2(0).get();
+		// System.out.println(build.getDisplayName() + " completed");
+		// String s = FileUtils.readFileToString(build.getLogFile());
+		// logger.info("s = " + s + " <------------------------ s");
 		// Assert.assertThat("Contains string \"echo hello\"", s,
 		// containsString("Legacy code"));
 		// System.exit(0);
+		// Assert.assertEquals("HtmlUnit - Welcome to HtmlUnit",
+		// page.getTitleText());
+
 	}
 
 	/**
-	 * Simple test for multiple String declarations
+	 * Test Jenkins Login
+	 * 
+	 * @throws IOException
+	 */
+	@Test
+	public void testTwo() throws IOException {
+		// Login
+		form = page.getFormByName("login");
+		form.getInputByName("j_username").setValueAttribute(userName);
+		form.getInputByName("j_password").setValueAttribute(passWord);
+		final HtmlElement createdElement = (HtmlElement) page.createElement("input");
+		createdElement.setAttribute("type", "submit");
+		createdElement.setAttribute("name", "submitIt");
+		createdElement.setAttribute("onclick", "login.submit();");
+		form.appendChild(createdElement);
+
+		final HtmlElement submitButton = form.getInputByName("submitIt");
+		page = submitButton.click();
+		final HtmlElement loginField = page.getFirstByXPath("//a/@href");
+		
+		logger.info(loginField.toString());
+		System.exit(0);
+		
+		if (loginField == null || !loginField.getTextContent().contains(fullName))
+			throw new RuntimeException("Unable to log on to Jenkins. "); 
+		System.out.println("Logged in! ");
+		System.in.read();
+	}
+
+	/**
+	 * Run test build (from Unit Test example on Jenkins page)
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testFreeStyleProjectBuild() throws Exception {
+	}
+
+	/**
+	 * Simple test for multiple String declarations (can remove when test class
+	 * is fully complete)
+	 * 
 	 * @throws FailingHttpStatusCodeException
 	 * @throws IOException
 	 */
 	@Test
 	public void testSetMultipleStrings() throws FailingHttpStatusCodeException, IOException {
-		assertEquals("", defaultPropertyKey);
-		assertEquals("", groovyScript);
-		assertEquals("", groovyScriptFile);
-		assertEquals("", bindings);
-		assertEquals("", propertyKey);
-		assertEquals("", defaultValue);
-		assertEquals("", defaultPropertyFile);
-		assertEquals("", defaultGroovyScript);
-		assertEquals("", defaultGroovyScriptFile);
-		assertEquals("", defaultBindings);
+		Assert.assertEquals("", defaultPropertyKey);
+		Assert.assertEquals("", groovyScript);
+		Assert.assertEquals("", groovyScriptFile);
+		Assert.assertEquals("", bindings);
+		Assert.assertEquals("", propertyKey);
+		Assert.assertEquals("", defaultValue);
+		Assert.assertEquals("", defaultPropertyFile);
+		Assert.assertEquals("", defaultGroovyScript);
+		Assert.assertEquals("", defaultGroovyScriptFile);
+		Assert.assertEquals("", defaultBindings);
 	}
-	
+
 	/**
 	 * Test Set Environment Variables
+	 * 
 	 * @throws IOException
 	 */
 	@Test
@@ -180,15 +213,15 @@ public class ExtendedChoiceParameterDefinitionTest {
 		envVars.put("sampleEnvVarKey", "sampleEnvVarValue");
 		j.jenkins.getGlobalNodeProperties().add(prop);
 	}
-	
+
 	@Test
 	public void testMultiLevelSelectOutput() {
-		
+
 	}
 
 	/**
-	 * Test store multiple values algorithm inside createValue method
-	 * for successful expected output
+	 * Test store multiple values algorithm inside createValue method for
+	 * successful expected output
 	 */
 	@Test
 	public void testStoreMultipleValues() {
@@ -221,12 +254,12 @@ public class ExtendedChoiceParameterDefinitionTest {
 				strCols.append(allCols.get(eachSelect)).append(",");
 			}
 		}
-		assertEquals(expectedStrCols, strCols.toString());
+		Assert.assertEquals(expectedStrCols, strCols.toString());
 	}
 
 	/**
-	 * Test store multiple values algorithm inside createValue method
-	 * for failed expected output
+	 * Test store multiple values algorithm inside createValue method for failed
+	 * expected output
 	 */
 	@Test(expected = ComparisonFailure.class)
 	public void testStoreMultipleValuesFail() {
@@ -259,7 +292,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 				strCols.append(allCols.get(eachSelect)).append(",");
 			}
 		}
-		assertEquals(expectedStrCols, strCols.toString());
+		Assert.assertEquals(expectedStrCols, strCols.toString());
 	}
 
 	/**
@@ -303,7 +336,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 		jsonObj.put("key", "value");
 		// assertSame(expectedObj1, obj.createValue(staplerObj, jsonObj));
 		logger.info("jsonObj: " + jsonObj.toString());
-		assertEquals("{\"key\":\"value\"}", jsonObj.toString());
+		Assert.assertEquals("{\"key\":\"value\"}", jsonObj.toString());
 	}
 
 	/**
