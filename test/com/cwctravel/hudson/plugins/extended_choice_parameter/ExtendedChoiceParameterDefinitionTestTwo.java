@@ -1,5 +1,6 @@
 /**
- * This Test Class will use mock objects
+ * This Test Class will use mock objects and Configure a new Jenkins Job 
+ * to test multi-level values
  */
 package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
@@ -25,6 +26,32 @@ public class ExtendedChoiceParameterDefinitionTestTwo {
 	
 	@Test
 	public void testLogin() {
+		
+	}
+	
+	public void testConfigure() {
+//		FreeStyleProject project = j.createFreeStyleProject();
+//		FreeStyleProject p = j.createFreeStyleProject();
+//		Builder before = new Builder("a", "b", true, 100);
+//
+//		p.getBuildersList().add(before);
+//
+//		j.submit(j.createWebClient().getPage(p, "configure").getFormByName("config"));
+//
+//		Builder after = p.getBuildersList().get(Builder.class);
+//
+//		j.assertEqualBeans(before, after, "prop1,prop2,prop3,...");
+
+		// project.getBuildersList().add(new Shell("echo hello"));
+		// FreeStyleBuild build = project.scheduleBuild2(0).get();
+		// System.out.println(build.getDisplayName() + " completed");
+		// String s = FileUtils.readFileToString(build.getLogFile());
+		// logger.info("s = " + s + " <------------------------ s");
+		// // Assert.assertThat("Contains string \"echo hello\"", s,
+		// containsString("Legacy code"));
+		// // System.exit(0);
+		// Assert.assertEquals("HtmlUnit - Welcome to HtmlUnit",
+		// page.getTitleText());
 		
 	}
 	

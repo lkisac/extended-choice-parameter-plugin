@@ -1,9 +1,11 @@
 /**
- * 
+ * This Test will test an existing Extended-Test job with Extended Choice Parameter
+ * multi-level select list to test storing multiple values
  */
 package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.logging.Level;
 import hudson.EnvVars;
 import hudson.model.*;
 import hudson.slaves.EnvironmentVariablesNodeProperty;
+import hudson.tasks.Builder;
 import hudson.tasks.Shell;
 
 import org.apache.commons.io.FileUtils;
@@ -119,25 +122,12 @@ public class ExtendedChoiceParameterDefinitionTest {
 	@Test
 	public void testOne() throws Exception {
 		jenkinsURL = new URL("http://localhost:9090/login");
-		logger.info(jenkinsURL.toString());
+		logger.info("testOne - jenkinsURL = " + jenkinsURL.toString());
 
 		// Get Jenkins login page
 		page = webClient.getPage(jenkinsURL);
-		logger.info("page title = " + page.getTitleText());
+		logger.info("testOne - page title = " + page.getTitleText());
 		Assert.assertEquals("Jenkins", page.getTitleText());
-
-		// FreeStyleProject project = j.createFreeStyleProject();
-		// project.getBuildersList().add(new Shell("echo hello"));
-		// FreeStyleBuild build = project.scheduleBuild2(0).get();
-		// System.out.println(build.getDisplayName() + " completed");
-		// String s = FileUtils.readFileToString(build.getLogFile());
-		// logger.info("s = " + s + " <------------------------ s");
-		// Assert.assertThat("Contains string \"echo hello\"", s,
-		// containsString("Legacy code"));
-		// System.exit(0);
-		// Assert.assertEquals("HtmlUnit - Welcome to HtmlUnit",
-		// page.getTitleText());
-
 	}
 
 	/**
@@ -147,20 +137,45 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 */
 	@Test
 	public void testTwo() throws IOException {
+		// Get login form
 		form = page.getFormByName("login");
+		
+		// Fill out login form
 		form.getInputByName("j_username").setValueAttribute(userName);
 		form.getInputByName("j_password").setValueAttribute(passWord);
+		
+		// Create form submit button and fire it off
 		final HtmlElement createdElement = (HtmlElement) page.createElement("input");
 		createdElement.setAttribute("type", "submit");
 		createdElement.setAttribute("name", "submitIt");
 		createdElement.setAttribute("onclick", "login.submit();");
 		form.appendChild(createdElement);
-
 		final HtmlElement submitButton = form.getInputByName("submitIt");
 		page = submitButton.click();
 
+		// Check that user successfully logged in
 		Assert.assertTrue((Boolean) page.getFirstByXPath("//a/@href='/user/admin'"));
 		Assert.assertTrue((Boolean) page.getFirstByXPath("//a/@href='/logout'"));
+	}
+
+	/*
+	 * Check that Extended-Test job exists
+	 */
+	@Test
+	public void testThree() throws Exception {
+		// Set URL
+		jenkinsURL = new URL("http://localhost:9090/job/Extended-Test");
+		logger.info("testThree - jenkinsURL = " + jenkinsURL.toString());
+
+		// Get job page and ensure correct page is retrieved
+		try {
+			page = webClient.getPage(jenkinsURL);
+			logger.info("testThree - page title = " + page.getTitleText());
+		} catch (Exception e) {
+			logger.info("Could not open Extended-Test job - " + jenkinsURL.toString());
+			System.exit(1);
+		}
+		Assert.assertEquals("Extended-Test [Jenkins]", page.getTitleText());
 	}
 
 	/**
@@ -168,9 +183,39 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * 
 	 * @throws Exception
 	 */
-	@Ignore
 	@Test
-	public void testFreeStyleProjectBuild() throws Exception {
+	public void testBuild() throws Exception {
+		// TODO:
+		// Set URL
+		jenkinsURL = new URL("http://localhost:9090/job/Extended-Test/build");
+		logger.info("testBuild - jenkinsURL = " + jenkinsURL.toString());
+		
+		// Get job page and ensure correct page is retrieved
+		try {
+			page = webClient.getPage(jenkinsURL);
+			logger.info("testBuild - page title = " + page.getTitleText());
+		} catch (Exception e) {
+			logger.info("Could not open Extended-Test build screen - " + jenkinsURL.toString());
+			System.exit(1);
+		}
+		Assert.assertEquals("Jenkins", page.getTitleText());
+
+		// Get parameters form(Build)
+		form = page.getFormByName("parameters");		
+		
+		// Get submit button and fire it off
+		HtmlElement submitButton = (HtmlElement) page.getElementsByTagName("button");
+		page = submitButton.click();
+		
+		// TODO: Assert that build was successful
+		//
+		
+	}
+	
+	// TODO: Navigate to Console Output page and check that the output is correct
+	@Test
+	public void testConsoleOutput() {
+		
 	}
 
 	/**
