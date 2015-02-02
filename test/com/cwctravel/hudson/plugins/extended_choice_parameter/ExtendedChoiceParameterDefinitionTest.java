@@ -32,7 +32,6 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -88,8 +87,8 @@ public class ExtendedChoiceParameterDefinitionTest {
 	public JenkinsRule j = new JenkinsRule();
 
 	/**
-	 * Initialize new ExtendedChoiceParameterDefinition object to test methods
-	 * with
+	 * Create ExtendedChoiceParameterDefinition class object to test
+	 * methods with
 	 * 
 	 * @throws java.lang.Exception
 	 */
@@ -101,8 +100,10 @@ public class ExtendedChoiceParameterDefinitionTest {
 				defaultGroovyScript, defaultGroovyScriptFile, defaultBindings, defaultPropertyKey,
 				quoteValue, visibleItemCount, description, multiSelectDelimiter);
 
+		// Enable JavaScript
 		webClient.getOptions().setJavaScriptEnabled(true);
 		
+		// Initialize Logger
 		logger = Logger.getLogger(ExtendedChoiceParameterDefinitionTest.class.getName());
 		handler = new ConsoleHandler();
 		logger.addHandler(handler);
@@ -115,8 +116,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	}
 
 	/**
-	 * Connect webClient to Jenkins Build page, if it successfully connects,
-	 * verify that the page title is "Jenkins"
+	 * Open Jenkins login page
 	 * 
 	 * @throws Exception
 	 */
@@ -132,7 +132,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	}
 
 	/**
-	 * Test Jenkins Login
+	 * Log in to Jenkins as "admin" user
 	 * 
 	 * @throws IOException
 	 */
@@ -160,7 +160,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	}
 
 	/*
-	 * Check that Extended-Test job exists
+	 * Check that "Extended-Test" job exists
 	 */
 	@Test
 	public void testThree() throws Exception {
@@ -180,7 +180,8 @@ public class ExtendedChoiceParameterDefinitionTest {
 	}
 
 	/**
-	 * Run test build (from Unit Test example on Jenkins page)
+	 * Run test build (using Selenium WebDriver) from selected
+	 * dropdown values
 	 * 
 	 * @throws Exception
 	 */
@@ -204,11 +205,11 @@ public class ExtendedChoiceParameterDefinitionTest {
 		Assert.assertEquals("[<option value=\"San Francisco\">]", select.getAllSelectedOptions().toString());
 
 		// Build
-//		logger.info("button: " + driver.findElement(By.name("Submit")).toString());
-//		driver.findElement(By.name("Submit")).click();
+		logger.info("button: " + driver.findElement(By.name("Submit")).toString());
+		driver.findElement(By.name("Submit")).click();
 //		HtmlElement buildButton = (HtmlElement) driver.findElement(By.id("yui-gen1-button"));
 //		buildButton.click();
-		driver.findElement(By.name("parameters")).submit();
+		//driver.findElement(By.name("parameters")).submit();
 		//logger.info("Button: " + driver.findElement(By.name("parameters")).findElement(By.id("yui-gen1-button")).toString());
 		
 		logger.info("current url: " + driver.getCurrentUrl());
@@ -225,7 +226,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	}
 
 	/**
-	 * Test Set Environment Variables
+	 * Set environment variables
 	 * 
 	 * @throws IOException
 	 */
