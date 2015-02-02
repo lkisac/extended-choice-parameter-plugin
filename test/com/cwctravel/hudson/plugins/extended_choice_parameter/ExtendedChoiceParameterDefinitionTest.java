@@ -180,8 +180,8 @@ public class ExtendedChoiceParameterDefinitionTest {
 	}
 
 	/**
-	 * Run test build (using Selenium WebDriver) from selected
-	 * dropdown values
+	 * Run test build for "Extended-Test" job (using Selenium WebDriver)
+	 * from selected dropdown values
 	 * 
 	 * @throws Exception
 	 */
