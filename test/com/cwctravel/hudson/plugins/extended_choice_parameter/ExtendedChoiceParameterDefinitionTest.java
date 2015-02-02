@@ -5,21 +5,16 @@
 package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
 
 import hudson.EnvVars;
 import hudson.model.*;
 import hudson.slaves.EnvironmentVariablesNodeProperty;
-import hudson.tasks.Builder;
-import hudson.tasks.Shell;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -28,8 +23,12 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.kohsuke.stapler.StaplerRequest;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.jvnet.hudson.test.recipes.LocalData;
+import org.openqa.selenium.support.ui.Select;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
@@ -71,7 +70,7 @@ public class ExtendedChoiceParameterDefinitionTest {
 	StaplerRequest staplerObj;
 	JSONObject jsonObj = new JSONObject();
 
-	private static final WebClient webClient = new WebClient(BrowserVersion.CHROME);
+	private static final WebClient webClient = new WebClient(BrowserVersion.CHROME);	
 	private static URL jenkinsURL = null;
 	private static HtmlForm form = null;
 	private static HtmlPage page = null;
@@ -102,6 +101,8 @@ public class ExtendedChoiceParameterDefinitionTest {
 				defaultGroovyScript, defaultGroovyScriptFile, defaultBindings, defaultPropertyKey,
 				quoteValue, visibleItemCount, description, multiSelectDelimiter);
 
+		webClient.getOptions().setJavaScriptEnabled(true);
+		
 		logger = Logger.getLogger(ExtendedChoiceParameterDefinitionTest.class.getName());
 		handler = new ConsoleHandler();
 		logger.addHandler(handler);
@@ -185,59 +186,42 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 */
 	@Test
 	public void testBuild() throws Exception {
-		// TODO:
-		// Set URL
-		jenkinsURL = new URL("http://localhost:9090/job/Extended-Test/build");
-		logger.info("testBuild - jenkinsURL = " + jenkinsURL.toString());
 		
-		// Get job page and ensure correct page is retrieved
-		try {
-			page = webClient.getPage(jenkinsURL);
-			logger.info("testBuild - page title = " + page.getTitleText());
-		} catch (Exception e) {
-			logger.info("Could not open Extended-Test build screen - " + jenkinsURL.toString());
-			System.exit(1);
-		}
-		Assert.assertEquals("Jenkins", page.getTitleText());
+		WebDriver driver = new HtmlUnitDriver();		
+		
+		driver.get("http://localhost:9090/job/Extended-Test/build");
+		//driver.get("http://localhost:9090/job/Extended-Test/buildWithParameters?Country_2_Levels=1:United States,San Francisco:2:Mexico,Mexico City:&Country_3_Levels=1:United States,San Francisco,Street1:2:Mexico,Mexico City,Street3:Country_4_Levels=1:United States,Chicago,Street2,12:2:Mexico,Cancun,Street4,14:3:Mexico,Mexico City,Street3,13:");		
+		
+		logger.info("testBuild title = " + driver.getTitle());
+		Assert.assertEquals("Jenkins", driver.getTitle());
+		
+		// Select values from multi-level dropdowns
+		Select select = new Select(driver.findElement(By.id("Country_2_Levels dropdown MultiLevelMultiSelect 0")));
+		select.selectByVisibleText("United States");
+		Assert.assertEquals("[<option value=\"United States\">]", select.getAllSelectedOptions().toString());
+		select = new Select(driver.findElement(By.id("Country_2_Levels dropdown MultiLevelMultiSelect 0 United States")));
+		select.selectByVisibleText("San Francisco");
+		Assert.assertEquals("[<option value=\"San Francisco\">]", select.getAllSelectedOptions().toString());
 
-		// Get parameters form(Build)
-		form = page.getFormByName("parameters");		
+		// Build
+//		logger.info("button: " + driver.findElement(By.name("Submit")).toString());
+//		driver.findElement(By.name("Submit")).click();
+//		HtmlElement buildButton = (HtmlElement) driver.findElement(By.id("yui-gen1-button"));
+//		buildButton.click();
+		driver.findElement(By.name("parameters")).submit();
+		//logger.info("Button: " + driver.findElement(By.name("parameters")).findElement(By.id("yui-gen1-button")).toString());
 		
-		// Get submit button and fire it off
-		HtmlElement submitButton = (HtmlElement) page.getElementsByTagName("button");
-		page = submitButton.click();
+		logger.info("current url: " + driver.getCurrentUrl());
+		logger.info("page source: " + driver.getPageSource());
 		
-		// TODO: Assert that build was successful
-		//
-		
+		driver.quit();
 	}
 	
 	// TODO: Navigate to Console Output page and check that the output is correct
+	@Ignore
 	@Test
 	public void testConsoleOutput() {
 		
-	}
-
-	/**
-	 * Simple test for multiple String declarations (can remove when test class
-	 * is fully complete)
-	 * 
-	 * @throws FailingHttpStatusCodeException
-	 * @throws IOException
-	 */
-	@Ignore
-	@Test
-	public void testSetMultipleStrings() throws FailingHttpStatusCodeException, IOException {
-		Assert.assertEquals("", defaultPropertyKey);
-		Assert.assertEquals("", groovyScript);
-		Assert.assertEquals("", groovyScriptFile);
-		Assert.assertEquals("", bindings);
-		Assert.assertEquals("", propertyKey);
-		Assert.assertEquals("", defaultValue);
-		Assert.assertEquals("", defaultPropertyFile);
-		Assert.assertEquals("", defaultGroovyScript);
-		Assert.assertEquals("", defaultGroovyScriptFile);
-		Assert.assertEquals("", defaultBindings);
 	}
 
 	/**
@@ -343,12 +327,14 @@ public class ExtendedChoiceParameterDefinitionTest {
 	 * {@link com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinition#ExtendedChoiceParameterDefinition(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, boolean, int, java.lang.String, java.lang.String)}
 	 * .
 	 */
+	@Ignore
 	@Test
 	public void testNewInstance() {
 
 		// fail("Not yet implemented");
 	}
-
+	
+	@Ignore
 	@LocalData
 	public void setLocalData() {
 
