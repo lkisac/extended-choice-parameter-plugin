@@ -102,9 +102,10 @@ public class SeleniumWebDriver {
 			// element);
 			js.executeScript("arguments[0].scrollIntoView(true);", element);
 			Thread.sleep(2000);
-			js.executeScript("var firstNode = document.evaluate(\".//button[@class='hetero-list-add'][contains(., 'Add build step')]\", document.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); "
-					/*+ "alert(firstNode.singleNodeValue.textContent);"*/
-					+ "document.location.href = firstNode.singleNodeValue.click()");
+//			js.executeScript("var firstNode = document.evaluate(\".//button[@class='hetero-list-add'][contains(., 'Add build step')]\", document.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); "
+//					/*+ "alert(firstNode.singleNodeValue.textContent);"*/
+//					+ "document.location.href = firstNode.singleNodeValue.click()");
+			element.click();
 			//e.printStackTrace();
 			// System.exit(1);
 		//}
