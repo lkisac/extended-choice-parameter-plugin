@@ -88,7 +88,7 @@ public class SeleniumWebDriver {
 		}
 		Thread.sleep(2000);
 
-		// Add Build Step 'Execute Shell'
+		// Add Build Step 'Execute shell'
 		element = driver.findElement(By
 				.xpath("//button[@class='hetero-list-add'][contains(., 'Add build step')]"));
 //		try {
@@ -101,7 +101,7 @@ public class SeleniumWebDriver {
 			// js.executeScript("document.getElementByXpath(\"//button[@class='hetero-list-add'][contains(., 'Add build step')]\").click();",
 			// element);
 			js.executeScript("arguments[0].scrollIntoView(true);", element);
-			Thread.sleep(2000);
+			//Thread.sleep(2000);
 //			js.executeScript("var firstNode = document.evaluate(\".//button[@class='hetero-list-add'][contains(., 'Add build step')]\", document.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); "
 //					/*+ "alert(firstNode.singleNodeValue.textContent);"*/
 //					+ "document.location.href = firstNode.singleNodeValue.click()");
@@ -110,7 +110,7 @@ public class SeleniumWebDriver {
 			// System.exit(1);
 		//}
 		Thread.sleep(2000);
-		driver.findElement(By.linkText("Execute Shell")).click(); // Shell
+		driver.findElement(By.linkText("Execute shell")).click(); // Shell
 																	// script to
 																	// create
 																	// multi-level
@@ -118,21 +118,19 @@ public class SeleniumWebDriver {
 																	// file
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//textarea[@name='command']")).sendKeys(
-				"# Create config files" + "echo 'Country	City" + "United States	San Francisco"
-						+ "United States	Chicago" + "Mexico	Mexico City"
-						+ "Mexico	Cancun' > countries.txt" + "echo 'Country	City	Street"
+				"# Create config files\necho \'Country\tCity\nUnited States\tSan Francisco\nUnited States\tChicago\nMexico\tMexico City\nMexico\tCancun' > countries.txt\n");/* + "echo 'Country	City	Street"
 						+ "United States	San Francisco	Street1" + "United States	Chicago	Street2"
 						+ "Mexico	Mexico City	Street3" + "Mexico	Cancun	Street4' > countries1.txt"
 						+ "echo 'Country	City	Street	Number"
 						+ "United States	San Francisco	Street1	11"
 						+ "United States	Chicago	Street2	12" + "Mexico	Mexico City	Street3	13"
-						+ "Mexico	Cancun	Street4	14' > countries2.txt");
+						+ "Mexico	Cancun	Street4	14' > countries2.txt");*/
 		Thread.sleep(2000);
 
 		// driver.findElement(By.name("_.propertyFile"));
 
-		driver.close();
-		driver.quit();
+//		driver.close();
+//		driver.quit();
 
 		// Build Extended-Test job
 		driver.findElement(By.linkText("Extended-Test-Auto")).click();

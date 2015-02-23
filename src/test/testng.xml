@@ -2,7 +2,7 @@
 <suite name="Suite" parallel="false">
   <test name="Test">
     <classes>
-      <class name="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestNG"/>
+      <class name="ExtendedChoiceParameterDefinitionTestNG"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
