@@ -4,7 +4,7 @@
  *See the file license.txt for copying permission.
  */
 
-package com.cwctravel.hudson.plugins.extended_choice_parameter;
+package main.java.com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import groovy.lang.GroovyShell;
 import hudson.Extension;
@@ -42,6 +42,8 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Property;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+
+import com.cwctravel.hudson.plugins.extended_choice_parameter.Messages;
 
 import au.com.bytecode.opencsv.CSVReader;
 
