@@ -4,7 +4,7 @@
  */
 
 
-package main.java.com.cwctravel.hudson.plugins.extended_choice_parameter;
+package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 import hudson.model.StringParameterValue;
 
-public class ExtendedChoiceParameterValue extends StringParameterValue{
+public class ExtendedChoiceParameterValue extends StringParameterValue {
 	private static final long serialVersionUID = 7993744779892775177L;
 	private Map<Integer, String> allCols;
 	private Map<Integer, List<String>> allColsList;
@@ -29,7 +29,6 @@ public class ExtendedChoiceParameterValue extends StringParameterValue{
 		super(name, value);
 		this.setAllCols(allCols);
 		this.setMultiLevelColumns(multiLevelColumns);
-		System.out.println(name + value + this.allCols + this.multiLevelColumns);
 	}
 
 	public Map<Integer, String> getAllCols() {

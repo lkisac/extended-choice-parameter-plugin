@@ -4,7 +4,7 @@
  *See the file license.txt for copying permission.
  */
 
-package main.java.com.cwctravel.hudson.plugins.extended_choice_parameter;
+package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import groovy.lang.GroovyShell;
 import hudson.Extension;
@@ -42,8 +42,6 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Property;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
-
-import com.cwctravel.hudson.plugins.extended_choice_parameter.Messages;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -265,7 +263,6 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 			int visibleItemCount, String description, String multiSelectDelimiter) {
 		super(name, description);
 		this.type = type;
-		System.out.println("name: " + name);
 
 		this.value = value;
 		this.propertyFile = propertyFile;
@@ -329,6 +326,7 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 			String valueStr = getEffectiveValue();
 			if(valueStr != null) {
 				List<String> result = new ArrayList<String>();
+				Map<Integer, List<String>> allCols = new HashMap<Integer, List<String>>();
 
 				String[] values = valueStr.split(",");
 				Set<String> valueSet = new HashSet<String>();
@@ -353,12 +351,9 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 		Object value = jO.get("value");
 		String strValue = "";
 		Map<Integer, String> allCols = new HashMap<Integer, String>();		
-		System.out.println("value: " + value);
-		System.out.println("type: " + type);
 		
 		if(value instanceof String) {
 			strValue = (String)value;
-			System.out.println("strValue: " + strValue);
 		}
 		else if(value instanceof JSONArray) {
 			int multiLevelColumns = 0;
