@@ -89,7 +89,13 @@
 			<version>6.1.1</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>	
+		<dependency>
+			<groupId>com.sonyericsson.hudson.plugins.rebuild</groupId>
+			<artifactId>rebuild</artifactId>
+			<version>1.21</version> <!-- RebuildParameterProvider is available since 1.21 -->
+			<optional>true</optional>
+		</dependency>
+		</dependencies>	
 
 	<!-- get every artifact through maven.glassfish.org, which proxies all the artifacts that we need -->
 	<repositories>
