@@ -1,35 +1,28 @@
-/**
- * This class uses Selenium's WebDriver to demonstrate
- * the functionality of storing multiple values from a multi-level
- * multi select list by running the "Extended-Test" job which contains
- * the "Extended Choice Parameter" multi-level multi-select list.
- * It then selects values and displays all selected values in the Console Output
- * to ensure storing of multiple entries works
- */
 package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
-import java.io.File;
-import java.util.List;
+//import org.testng.annotations.Test;
 
+import java.io.File;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.JavascriptExecutor;
 
-public class SeleniumWebDriver {
+public class ExtendedChoiceParameterSeleniumTestNG {
+//	@Test
+//	public void f() {
+//	}
 
 	public static void main(String[] args) throws InterruptedException {
 		// Testing Selenium WebDriver
 		File file = new File("C:/WebDrivers/chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--start-maximized");
-		WebDriver driver = new ChromeDriver(options);
-		// WebDriver driver = new ChromeDriver();
+		// ChromeOptions options = new ChromeOptions();
+		// options.addArguments("--start-maximized");
+		// WebDriver driver = new ChromeDriver(options);
+		WebDriver driver = new ChromeDriver();
 		// driver.manage().window().maximize(); // another simple way to
 		// maximize window
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -91,24 +84,24 @@ public class SeleniumWebDriver {
 		// Add Build Step 'Execute shell'
 		element = driver.findElement(By
 				.xpath("//button[@class='hetero-list-add'][contains(., 'Add build step')]"));
-//		try {
-//			new Actions(driver).moveToElement(element).perform();
-//			Thread.sleep(2000);
-//			element.click();
-		//} catch (Exception e) {
-			// js.executeScript("alert('Using JavascriptExecutor')");
-			// js.executeScript("document.getElement(By.xpath(\"//button[@class=\'hetero-list-add\'][contains(., \'Add build step\')]\").click()");
-			// js.executeScript("document.getElementByXpath(\"//button[@class='hetero-list-add'][contains(., 'Add build step')]\").click();",
-			// element);
-			js.executeScript("arguments[0].scrollIntoView(true);", element);
-			//Thread.sleep(2000);
-//			js.executeScript("var firstNode = document.evaluate(\".//button[@class='hetero-list-add'][contains(., 'Add build step')]\", document.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); "
-//					/*+ "alert(firstNode.singleNodeValue.textContent);"*/
-//					+ "document.location.href = firstNode.singleNodeValue.click()");
-			element.click();
-			//e.printStackTrace();
-			// System.exit(1);
-		//}
+		// try {
+		// new Actions(driver).moveToElement(element).perform();
+		// Thread.sleep(2000);
+		// element.click();
+		// } catch (Exception e) {
+		// js.executeScript("alert('Using JavascriptExecutor')");
+		// js.executeScript("document.getElement(By.xpath(\"//button[@class=\'hetero-list-add\'][contains(., \'Add build step\')]\").click()");
+		// js.executeScript("document.getElementByXpath(\"//button[@class='hetero-list-add'][contains(., 'Add build step')]\").click();",
+		// element);
+		js.executeScript("arguments[0].scrollIntoView(true);", element);
+		// Thread.sleep(2000);
+		// js.executeScript("var firstNode = document.evaluate(\".//button[@class='hetero-list-add'][contains(., 'Add build step')]\", document.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); "
+		// /*+ "alert(firstNode.singleNodeValue.textContent);"*/
+		// + "document.location.href = firstNode.singleNodeValue.click()");
+		element.click();
+		// e.printStackTrace();
+		// System.exit(1);
+		// }
 		Thread.sleep(2000);
 		driver.findElement(By.linkText("Execute shell")).click(); // Shell
 																	// script to
@@ -117,20 +110,14 @@ public class SeleniumWebDriver {
 																	// properties
 																	// file
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//textarea[@name='command']")).sendKeys(
-				"# Create config files\necho \'Country\tCity\nUnited States\tSan Francisco\nUnited States\tChicago\nMexico\tMexico City\nMexico\tCancun' > countries.txt\n");/* + "echo 'Country	City	Street"
-						+ "United States	San Francisco	Street1" + "United States	Chicago	Street2"
-						+ "Mexico	Mexico City	Street3" + "Mexico	Cancun	Street4' > countries1.txt"
-						+ "echo 'Country	City	Street	Number"
-						+ "United States	San Francisco	Street1	11"
-						+ "United States	Chicago	Street2	12" + "Mexico	Mexico City	Street3	13"
-						+ "Mexico	Cancun	Street4	14' > countries2.txt");*/
+		driver.findElement(By.xpath("//textarea[@name='command']"))
+				.sendKeys("# Create config files\necho \'Country\tCity\nUnited States\tSan Francisco\nUnited States\tChicago\nMexico\tMexico City\nMexico\tCancun' > countries.txt\n");
 		Thread.sleep(2000);
 
 		// driver.findElement(By.name("_.propertyFile"));
 
-//		driver.close();
-//		driver.quit();
+		// driver.close();
+		// driver.quit();
 
 		// Build Extended-Test job
 		driver.findElement(By.linkText("Extended-Test-Auto")).click();
