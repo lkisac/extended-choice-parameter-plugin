@@ -3,4 +3,5 @@
 /classes/
 .project
 .classpath
-/target/
+.settings/
+
