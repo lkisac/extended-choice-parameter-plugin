@@ -22,7 +22,7 @@ public class ExtendedChoiceParameterTest {
 	
 	@Test
 	public void testExtendedChoiceParameterCreateValue() throws IOException {
-		FreeStyleProject p = j.createFreeStyleProject("");
+		FreeStyleProject p = j.createFreeStyleProject();
 		p.setDisplayName("Extended-Test");
 	}
 }
