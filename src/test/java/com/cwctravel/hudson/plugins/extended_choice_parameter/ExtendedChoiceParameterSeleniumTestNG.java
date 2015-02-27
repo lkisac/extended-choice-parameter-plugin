@@ -7,24 +7,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.JavascriptExecutor;
 
 public class ExtendedChoiceParameterSeleniumTestNG {
-//	@Test
-//	public void f() {
-//	}
+	// @Test
+	// public void f() {
+	// }
 
 	public static void main(String[] args) throws InterruptedException {
 		// Testing Selenium WebDriver
 		File file = new File("C:/WebDrivers/chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
-		// ChromeOptions options = new ChromeOptions();
-		// options.addArguments("--start-maximized");
-		// WebDriver driver = new ChromeDriver(options);
-		WebDriver driver = new ChromeDriver();
-		// driver.manage().window().maximize(); // another simple way to
-		// maximize window
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--start-maximized");
+		WebDriver driver = new ChromeDriver(options);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebElement element;
 		Select select;
@@ -47,35 +45,36 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		Thread.sleep(2000);
 		driver.findElement(By.name("name")).sendKeys("Extended-Test-Auto");
 		driver.findElement(By.xpath("//input[@value='hudson.model.FreeStyleProject']")).click();
-		// Thread.sleep(3000);
+		Thread.sleep(2000);
 		driver.findElement(By.id("ok-button")).click();
-		// Thread.sleep(2000);
+		Thread.sleep(2000);
 
 		// Configure job
-		driver.findElement(By.name("parameterized")).click(); // Check 'This
-																// build is
-																// parameterized'
-		// Thread.sleep(2000);
-		driver.findElement(By.className("hetero-list-add")).click(); // Add
-																		// parameter
-		// Thread.sleep(2000);
-		driver.findElement(By.linkText("Extended Choice Parameter")).click(); // Select
-																				// parameter
+		driver.findElement(By.name("parameterized")).click(); // Check 'This build is parameterized'
+		Thread.sleep(2000);
+		driver.findElement(By.className("hetero-list-add")).click(); // Add parameter
+		Thread.sleep(2000);
+		driver.findElement(By.linkText("Extended Choice Parameter")).click(); // Select parameter
 		Thread.sleep(2000);
 		driver.findElement(By.name("_.name")).sendKeys("Country_2_Levels");
-		// Thread.sleep(2000);
+		Thread.sleep(2000);
 		driver.findElement(
 				By.xpath("//input[@type='radio'][./ancestor-or-self::label[contains(., 'Complex Parameter Types')]]"))
 				.click(); // Select 'Complex Parameter Types'
 		Thread.sleep(2000);
 		int size = driver.findElements(By.xpath("//select[@name='type']")).size();
-		for (int i = 0; i < size; i++) { // find the visible select list, not
-											// invisible ones that exist on the
-											// page
+		for (int i = 0; i < size; i++) { // find the visible select list, not invisible ones that exist on the page
 			element = driver.findElements(By.xpath("//select[@name='type']")).get(i);
 			if (element.isDisplayed()) {
 				select = new Select(element);
 				select.selectByVisibleText("Multi-Level Multi Select");
+				Thread.sleep(2000);
+				element = driver.findElement(By.xpath("//input[@name='_.propertyFile']"));
+				//((JavascriptExecutor)driver).executeScript("alert(arguments[0])", element);
+//				Thread.sleep(7000);
+//				((JavascriptExecutor)driver).executeScript("arguments[1].style.visibility = 'visible';", element);
+				Thread.sleep(1000);
+				element.sendKeys("http://localhost:9090/job/Extended-Test-Auto/ws/countries.txt");
 				break;
 			}
 		}
@@ -84,44 +83,24 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		// Add Build Step 'Execute shell'
 		element = driver.findElement(By
 				.xpath("//button[@class='hetero-list-add'][contains(., 'Add build step')]"));
-		// try {
-		// new Actions(driver).moveToElement(element).perform();
-		// Thread.sleep(2000);
-		// element.click();
-		// } catch (Exception e) {
-		// js.executeScript("alert('Using JavascriptExecutor')");
-		// js.executeScript("document.getElement(By.xpath(\"//button[@class=\'hetero-list-add\'][contains(., \'Add build step\')]\").click()");
-		// js.executeScript("document.getElementByXpath(\"//button[@class='hetero-list-add'][contains(., 'Add build step')]\").click();",
-		// element);
 		js.executeScript("arguments[0].scrollIntoView(true);", element);
-		// Thread.sleep(2000);
-		// js.executeScript("var firstNode = document.evaluate(\".//button[@class='hetero-list-add'][contains(., 'Add build step')]\", document.body, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null); "
-		// /*+ "alert(firstNode.singleNodeValue.textContent);"*/
-		// + "document.location.href = firstNode.singleNodeValue.click()");
-		element.click();
-		// e.printStackTrace();
-		// System.exit(1);
-		// }
 		Thread.sleep(2000);
-		driver.findElement(By.linkText("Execute shell")).click(); // Shell
-																	// script to
-																	// create
-																	// multi-level
-																	// properties
-																	// file
+		element.click();
+		Thread.sleep(2000);
+		driver.findElement(By.linkText("Execute shell")).click(); // Shell script to create multi-level properties file
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//textarea[@name='command']"))
-				.sendKeys("# Create config files\necho \'Country\tCity\nUnited States\tSan Francisco\nUnited States\tChicago\nMexico\tMexico City\nMexico\tCancun' > countries.txt\n");
+				.sendKeys(
+						"# Create config files\necho 'Country\\tCity\\nUnited States\\tSan Francisco\\nUnited States\\tChicago\\nMexico\\tMexico City\\nMexico\\tCancun' > countries.txt\n");
+		// \'Country\tCity\nUnited States\tSan Francisco\nUnited States\tChicago\nMexico\tMexico City\nMexico\tCancun\' > countries.txt\n
 		Thread.sleep(2000);
 
-		// driver.findElement(By.name("_.propertyFile"));
-
-		// driver.close();
-		// driver.quit();
-
+		// Save Job
+		driver.findElement(By.xpath("//button[contains(., 'Save')]")).click();
+		
 		// Build Extended-Test job
-		driver.findElement(By.linkText("Extended-Test-Auto")).click();
-		Thread.sleep(2000);
+//		driver.findElement(By.linkText("Extended-Test-Auto")).click();
+//		Thread.sleep(2000);
 		driver.findElement(By.linkText("Build with Parameters")).click();
 		Thread.sleep(2000);
 		// Select from dropdown lists
