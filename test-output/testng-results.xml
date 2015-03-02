@@ -1,23 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="2" total="4" passed="2">
+<testng-results skipped="0" failed="1" total="3" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="30" started-at="2015-02-09T18:23:25Z" finished-at="2015-02-09T18:23:25Z">
+  <suite name="Default suite" duration-ms="11162" started-at="2015-03-02T21:11:46Z" finished-at="2015-03-02T21:11:58Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="30" started-at="2015-02-09T18:23:25Z" finished-at="2015-02-09T18:23:25Z">
-      <class name="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo">
-        <test-method status="FAIL" signature="first()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo@644bffa1]" name="first" duration-ms="7" started-at="2015-02-09T13:23:25Z" finished-at="2015-02-09T13:23:25Z">
-          <exception class="java.lang.NullPointerException">
+    <test name="Default test" duration-ms="11162" started-at="2015-03-02T21:11:46Z" finished-at="2015-03-02T21:11:58Z">
+      <class name="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG">
+        <test-method status="PASS" signature="init()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@192b07fd]" name="init" is-config="true" duration-ms="2297" started-at="2015-03-02T16:11:44Z" finished-at="2015-03-02T16:11:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="FAIL" signature="createNewJob()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@192b07fd]" name="createNewJob" duration-ms="135" started-at="2015-03-02T16:11:46Z" finished-at="2015-03-02T16:11:47Z">
+          <exception class="org.openqa.selenium.NoSuchElementException">
+            <message>
+              <![CDATA[no such element
+  (Session info: chrome=40.0.2214.111)
+  (Driver info: chromedriver=2.14.313457 (3d645c400edf2e2c500566c9aa096063e707c9cf),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 121 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.44.0', revision: '76d78cf323ce037c5f92db6c1bba601c2ac43ad8', time: '2014-10-23 13:11:40'
+System info: host: 'IFDS3965', ip: '172.18.75.125', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_11'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, chrome={userDataDir=C:\Users\IF9932~1.DST\AppData\Local\Temp\scoped_dir8112_12536}, takesHeapSnapshot=true, databaseEnabled=false, handlesAlerts=true, version=40.0.2214.111, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 8c7ab9720ef3cd9858dad0d5fd19ccf3]]>
+            </message>
             <full-stacktrace>
-              <![CDATA[java.lang.NullPointerException
-	at org.jvnet.hudson.test.JenkinsRule.createUniqueProjectName(JenkinsRule.java:751)
-	at org.jvnet.hudson.test.JenkinsRule.createFreeStyleProject(JenkinsRule.java:709)
-	at com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo.first(ExtendedChoiceParameterDefinitionTestTwo.java:46)
+              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element
+  (Session info: chrome=40.0.2214.111)
+  (Driver info: chromedriver=2.14.313457 (3d645c400edf2e2c500566c9aa096063e707c9cf),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 121 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.44.0', revision: '76d78cf323ce037c5f92db6c1bba601c2ac43ad8', time: '2014-10-23 13:11:40'
+System info: host: 'IFDS3965', ip: '172.18.75.125', os.name: 'Windows 7', os.arch: 'amd64', os.version: '6.1', java.version: '1.8.0_11'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, chrome={userDataDir=C:\Users\IF9932~1.DST\AppData\Local\Temp\scoped_dir8112_12536}, takesHeapSnapshot=true, databaseEnabled=false, handlesAlerts=true, version=40.0.2214.111, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 8c7ab9720ef3cd9858dad0d5fd19ccf3
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByLinkText(RemoteWebDriver.java:401)
+	at org.openqa.selenium.By$ByLinkText.findElement(By.java:242)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.createNewJob(ExtendedChoiceParameterSeleniumTestNG.java:64)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
+	at java.lang.reflect.Method.invoke(Method.java:483)
 	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
 	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
 	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
@@ -40,55 +74,19 @@
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.NullPointerException -->
+          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- first -->
-        <test-method status="PASS" signature="testAdd()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo@644bffa1]" name="testAdd" duration-ms="1" started-at="2015-02-09T13:23:25Z" finished-at="2015-02-09T13:23:25Z">
+        </test-method> <!-- createNewJob -->
+        <test-method status="PASS" signature="loadJenkinsInstance()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@192b07fd]" name="loadJenkinsInstance" duration-ms="3512" started-at="2015-03-02T16:11:47Z" finished-at="2015-03-02T16:11:50Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testAdd -->
-        <test-method status="FAIL" signature="testCustomBuilder()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo@644bffa1]" name="testCustomBuilder" duration-ms="10" started-at="2015-02-09T13:23:25Z" finished-at="2015-02-09T13:23:25Z">
-          <exception class="java.lang.NullPointerException">
-            <full-stacktrace>
-              <![CDATA[java.lang.NullPointerException
-	at org.jvnet.hudson.test.JenkinsRule.createFreeStyleProject(JenkinsRule.java:713)
-	at com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo.testCustomBuilder(ExtendedChoiceParameterDefinitionTestTwo.java:59)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:606)
-	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
-	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
-	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
-	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
-	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
-	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
-	at org.testng.TestRunner.privateRun(TestRunner.java:767)
-	at org.testng.TestRunner.run(TestRunner.java:617)
-	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
-	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
-	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
-	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
-	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
-	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
-	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
-	at org.testng.TestNG.run(TestNG.java:1057)
-	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
-	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
-	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
-]]>
-            </full-stacktrace>
-          </exception> <!-- java.lang.NullPointerException -->
+        </test-method> <!-- loadJenkinsInstance -->
+        <test-method status="PASS" signature="login()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@192b07fd]" name="login" duration-ms="7498" started-at="2015-03-02T16:11:50Z" finished-at="2015-03-02T16:11:58Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testCustomBuilder -->
-        <test-method status="PASS" signature="testLogin()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo@644bffa1]" name="testLogin" duration-ms="0" started-at="2015-02-09T13:23:25Z" finished-at="2015-02-09T13:23:25Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testLogin -->
-      </class> <!-- com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterDefinitionTestTwo -->
+        </test-method> <!-- login -->
+      </class> <!-- com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
