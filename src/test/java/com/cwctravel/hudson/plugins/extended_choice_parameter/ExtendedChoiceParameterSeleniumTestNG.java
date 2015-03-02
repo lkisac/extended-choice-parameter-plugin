@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -108,9 +109,23 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		Thread.sleep(2000);
 		driver.findElement(By.linkText("Execute shell")).click(); // Shell script to create multi-level properties file
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//textarea[@name='command']"))
-				.sendKeys(
-						"# Create config files\necho 'Country\\tCity\\nUnited States\\tSan Francisco\\nUnited States\\tChicago\\nMexico\\tMexico City\\nMexico\\tCancun' > countries.txt\n");
+		driver.findElement(By.xpath("//textarea[@name='command']")).sendKeys("# Create config files\necho -e 'Country\\tCity\\nUnited States\\tSan Francisco\\nUnited States\\tChicago\\nMexico\\tMexico City\\nMexico\\tCancun' > countries.txt\n");
+		driver.findElement(By.xpath("//textarea[@name='command']")).sendKeys("\n# Display select choices in second build\necho ${Country_2_Levels}\n");
+		Thread.sleep(2000);
+		// Add Build Step 'Execute Windows batch command'
+		element = driver.findElement(By
+				.xpath("//button[@class='hetero-list-add'][contains(., 'Add build step')]"));
+		js.executeScript("arguments[0].scrollIntoView(true);", element);
+		Thread.sleep(2000);
+		element.click();
+		Thread.sleep(2000);
+		driver.findElement(By.linkText("Execute Windows batch command")).click(); // Shell script to create multi-level properties file
+		Thread.sleep(2000);
+		//driver.findElement(By.xpath("//textarea[@name='command'][contains(., '')]")).sendKeys("# In case Shell doesn't print anything\necho %Country_2_Levels%\n");
+		size = driver.findElements(By.xpath("//textarea[@name='command'][contains(., '')]")).size();
+		element = driver.findElements(By.xpath("//textarea[@name='command']")).get(1);
+		element.sendKeys(":: In case Shell doesn't print anything\necho %Country_2_Levels%\n");
+		
 		Thread.sleep(2000);
 
 		// Save Job
@@ -118,9 +133,13 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		
 		Thread.sleep(3000);
 		
+		// Build to create config file
+		driver.findElement(By.linkText("Build with Parameters")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[contains(., 'Build')]")).click();
+		Thread.sleep(7000);
+		
 		// Build Extended-Test job
-//		driver.findElement(By.linkText("Extended-Test-Auto")).click();
-//		Thread.sleep(2000);
 		driver.findElement(By.linkText("Build with Parameters")).click();
 		Thread.sleep(2000);
 		
@@ -138,7 +157,7 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		select = new Select(driver.findElement(By
 				.id("Country_2_Levels dropdown MultiLevelMultiSelect 1")));
 		select.selectByVisibleText("Mexico");
-		Thread.sleep(4000);
+		Thread.sleep(2000);
 		select = new Select(driver.findElement(By
 				.id("Country_2_Levels dropdown MultiLevelMultiSelect 1 Mexico")));
 		select.selectByVisibleText("Mexico City");
@@ -150,6 +169,14 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		// Check Console Output
 		driver.findElement(By.className("build-status-link")).click();
 		Thread.sleep(10000);
+		
+		// Delete Extended-Test-Auto job
+		driver.findElement(By.linkText("Extended-Test-Auto")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.linkText("Delete Project")).click();
+		Thread.sleep(2000);
+		driver.switchTo().alert().accept();
+		Thread.sleep(3000);
 
 		// Done
 		driver.close();
