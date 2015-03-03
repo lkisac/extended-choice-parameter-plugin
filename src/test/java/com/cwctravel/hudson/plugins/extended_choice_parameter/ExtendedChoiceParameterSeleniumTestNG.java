@@ -47,7 +47,7 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		Thread.sleep(2000);
 	}
 
-	@Test
+	@Test(dependsOnMethods = { "loadJenkinsInstance" })
 	public void login() throws InterruptedException {
 		driver.findElement(By.linkText("log in")).click();
 		Thread.sleep(2000);
@@ -81,7 +81,8 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		// Check 'This build is parameterized'
 		driver.findElement(By.name("parameterized")).click();
 		Thread.sleep(2000);
-		// Add parameter
+
+		// Add parameter - Country 2 Levels
 		driver.findElement(By.className("hetero-list-add")).click();
 		Thread.sleep(2000);
 		// Select parameter
@@ -126,6 +127,64 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		}
 		Thread.sleep(2000);
 
+		// Add Parameter - Country 3 Levels
+		driver.findElement(By.className("hetero-list-add")).click();
+		Thread.sleep(2000);
+		// Select parameter
+		driver.findElement(By.linkText("Extended Choice Parameter")).click();
+		Thread.sleep(2000);
+		size = driver.findElements(By.name("_.name")).size();
+		for (int i = 0; i < size; i++) {
+			element = driver.findElements(By.name("_.name")).get(i);
+			if ("".equals(element.getText()) && i == 1) {
+				element.sendKeys("Country_3_Levels");
+				break;
+			}
+		}
+		Thread.sleep(2000);
+
+		size = driver
+				.findElements(
+						By.xpath("//input[@type='radio'][./ancestor-or-self::label[contains(., 'Complex Parameter Types')]]"))
+				.size();
+		for (int i = 0; i < size; i++) {
+			element = driver
+					.findElements(
+							By.xpath("//input[@type='radio'][./ancestor-or-self::label[contains(., 'Complex Parameter Types')]]"))
+					.get(i);
+			if (!element.isSelected()) {
+				element.click();
+			}
+		}
+		Thread.sleep(2000);
+		size = driver.findElements(By.xpath("//select[@name='type']")).size();
+		for (int i = 0; i < size; i++) {
+			element = driver.findElements(By.xpath("//select[@name='type']")).get(i);
+
+			if (element.isDisplayed() && i == 3) {
+				select = new Select(element);
+				select.selectByVisibleText("Multi-Level Multi Select");
+				Thread.sleep(2000);
+				elements = driver.findElements(By.name("_.propertyFile"));
+				Iterator<WebElement> iter = elements.iterator();
+				while (iter.hasNext()) {
+					element = iter.next();
+				}
+				Thread.sleep(1000);
+				element.sendKeys("http://localhost:9090/job/Extended-Test-Auto/ws/countries1.txt");
+				Thread.sleep(2000);
+				elements = driver.findElements(By.name("_.propertyValue"));
+				iter = elements.iterator();
+				while (iter.hasNext()) {
+					element = iter.next();
+				}
+				Thread.sleep(1000);
+				element.sendKeys("Country,City,Hotel");
+				break;
+			}
+		}
+		Thread.sleep(2000);
+
 		// Add Build Step 'Execute shell'
 		element = driver.findElement(By
 				.xpath("//button[@class='hetero-list-add'][contains(., 'Add build step')]"));
@@ -138,9 +197,11 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		Thread.sleep(2000);
 		driver.findElement(By.xpath("//textarea[@name='command']"))
 				.sendKeys(
-						"# Create config files\necho -e 'Country\\tCity\\nUnited States\\tSan Francisco\\nUnited States\\tChicago\\nMexico\\tMexico City\\nMexico\\tCancun' > countries.txt\n");
+						"# Create config files\n#Country 2 levels\necho -e 'Country\\tCity\\nUnited States\\tSan Francisco\\nUnited States\\tChicago\\nMexico\\tMexico City\\nMexico\\tCancun' > countries.txt\n\n"
+								+ "# Create config files\n#Country 3 levels\necho -e 'Country\\tCity\\tHotel\\nUnited States\\tSan Francisco\\tRedwood Inn\\nUnited States\\tSan Francisco\\tFour Seasons\\nUnited States\\tChicago\\tSheraton\\nUnited States\\tChicago\\tThe Drake\\nMexico\\tMexico City\\tGran Hotel\\nMexico\\tMexico City\\tJW Marriott\\nMexico\\tCancun\\tSun Palace\\tGrand Oasis' > countries1.txt\n");
 		driver.findElement(By.xpath("//textarea[@name='command']")).sendKeys(
-				"\n# Display select choices in second build\necho ${Country_2_Levels}\n");
+				"\n# Display select choices in second build\necho ${Country_2_Levels}\n"
+				+ "echo ${Country_3_Levels}\n");
 		Thread.sleep(2000);
 		// Add Build Step 'Execute Windows batch command'
 		element = driver.findElement(By
@@ -153,7 +214,8 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		Thread.sleep(2000);
 		size = driver.findElements(By.xpath("//textarea[@name='command'][contains(., '')]")).size();
 		element = driver.findElements(By.xpath("//textarea[@name='command']")).get(1);
-		element.sendKeys(":: In case Shell doesn't print anything\necho %Country_2_Levels%\n");
+		element.sendKeys(":: In case Shell script doesn't print\necho %Country_2_Levels%\n"
+				+ "echo %Country_3_Levels%\n");
 
 		Thread.sleep(2000);
 
@@ -179,7 +241,7 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		driver.findElement(By.linkText("Build with Parameters")).click();
 		Thread.sleep(2000);
 
-		// Select from multi-level dropdown lists
+		// Select from multi-level dropdown lists - 2 levels
 		select = new Select(driver.findElement(By
 				.id("Country_2_Levels dropdown MultiLevelMultiSelect 0")));
 		select.selectByVisibleText("United States");
@@ -199,24 +261,84 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		select.selectByVisibleText("Mexico City");
 		Thread.sleep(2000);
 
+		// Select from multi-level dropdown lists - 3 levels
+		// 1.1
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 0")));
+		select.selectByVisibleText("United States");
+		Thread.sleep(2000);
+		// 1.2
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 0 United States")));
+		select.selectByVisibleText("San Francisco");
+		Thread.sleep(2000);
+		// 1.3
+		select = new Select(
+				driver.findElement(By
+						.id("Country_3_Levels dropdown MultiLevelMultiSelect 0 United States San Francisco")));
+		select.selectByVisibleText("Redwood Inn");
+		Thread.sleep(2000);
+		driver.findElement(By.id("Country_3_Levels addAnotherButton")).click();
+		Thread.sleep(2000);
+
+		// 2.1
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 1")));
+		select.selectByVisibleText("Mexico");
+		Thread.sleep(2000);
+		// 2.2
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 1 Mexico")));
+		select.selectByVisibleText("Mexico City");
+		Thread.sleep(2000);
+		// 2.3
+		select = new Select(
+				driver.findElement(By
+						.id("Country_3_Levels dropdown MultiLevelMultiSelect 1 Mexico Mexico City")));
+		select.selectByVisibleText("Gran Hotel");
+		Thread.sleep(2000);
+		driver.findElement(By.id("Country_3_Levels addAnotherButton")).click();
+		Thread.sleep(2000);
+
+		// 3.1
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 2")));
+		select.selectByVisibleText("United States");
+		Thread.sleep(2000);
+		// 3.2
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 2 United States")));
+		select.selectByVisibleText("Chicago");
+		Thread.sleep(2000);
+		// 3.3
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 2 United States Chicago")));
+		select.selectByVisibleText("Sheraton");
+		Thread.sleep(2000);
+
 		// Build
-		driver.findElement(By.id("yui-gen1-button")).click();	
+		driver.findElement(By.id("yui-gen1-button")).click();
 		Thread.sleep(10000);
-		
+
 		// Check successful build
 		element = driver.findElement(By.className("build-status-link"));
-		Assert.assertTrue(element.findElements(By.xpath("//img[@alt='Success > Console Output']")).size() == 2);
-	
+		Assert.assertTrue(element.findElements(By.xpath("//img[@alt='Success > Console Output']"))
+				.size() == 2);
+
 	}
 
 	@Test(dependsOnMethods = { "buildJob" })
 	public void checkConsoleOutput() throws InterruptedException {
-		
+
 		// Check Console Output
 		element.click();
 		Thread.sleep(10000);
 		element = driver.findElement(By.className("console-output"));
-		Assert.assertTrue(element.getText().contains("1:United States,San Francisco:2:Mexico,Mexico City:"));
+		Assert.assertTrue(element.getText().contains(
+				"1:United States,San Francisco:2:Mexico,Mexico City:"));
+		Assert.assertTrue(element.getText().contains(
+				"1:United States,San Francisco,Redwood Inn:2:Mexico,Mexico City,Gran Hotel:3:United States,Chicago,Sheraton:"));
+
 	}
 
 	@AfterTest

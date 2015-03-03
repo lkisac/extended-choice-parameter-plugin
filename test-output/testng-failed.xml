@@ -10,6 +10,7 @@
           <include name="init"/>
           <include name="deleteJobAndFinish"/>
           <include name="createNewJob"/>
+          <include name="loadJenkinsInstance"/>
           <include name="configureJob"/>
           <include name="login"/>
         </methods>
