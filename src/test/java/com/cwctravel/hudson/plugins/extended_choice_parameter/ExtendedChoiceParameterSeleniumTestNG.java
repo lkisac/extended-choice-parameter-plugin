@@ -41,6 +41,8 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 	@Test
 	public void loadJenkinsInstance() throws InterruptedException {
 		driver.get(jenkinsUrl);
+
+		// Check that Jenkins instance started
 		Assert.assertEquals("Dashboard [Jenkins]", driver.getTitle());
 		Thread.sleep(2000);
 	}
@@ -54,6 +56,8 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		driver.findElement(By.name("j_password")).sendKeys("admin");
 		driver.findElement(By.id("yui-gen1-button")).click();
 		Thread.sleep(1000);
+
+		// Check for successful login
 		Assert.assertTrue(driver.findElements(By.linkText("log out")).size() != 0);
 	}
 
@@ -67,6 +71,8 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		Thread.sleep(2000);
 		driver.findElement(By.id("ok-button")).click();
 		Thread.sleep(2000);
+
+		// Check that new job was created succesfully
 		Assert.assertEquals("Extended-Test-Auto Config [Jenkins]", driver.getTitle());
 	}
 
@@ -156,62 +162,76 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 
 		Thread.sleep(3000);
 
+		// Check that new configuration is saved
+		Assert.assertEquals("Extended-Test-Auto [Jenkins]", driver.getTitle());
+
 	}
-	
+
 	@Test(dependsOnMethods = { "configureJob" })
 	public void buildJob() throws InterruptedException {
-		 // Build to create config file
-		 driver.findElement(By.linkText("Build with Parameters")).click();
-		 Thread.sleep(2000);
-		 driver.findElement(By.xpath("//button[contains(., 'Build')]")).click();
-		 Thread.sleep(7000);
+		// Build to create config file
+		driver.findElement(By.linkText("Build with Parameters")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//button[contains(., 'Build')]")).click();
+		Thread.sleep(7000);
+
+		// Build job with Extended Choice Parameters
+		driver.findElement(By.linkText("Build with Parameters")).click();
+		Thread.sleep(2000);
+
+		// Select from multi-level dropdown lists
+		select = new Select(driver.findElement(By
+				.id("Country_2_Levels dropdown MultiLevelMultiSelect 0")));
+		select.selectByVisibleText("United States");
+		Thread.sleep(2000);
+		select = new Select(driver.findElement(By
+				.id("Country_2_Levels dropdown MultiLevelMultiSelect 0 United States")));
+		select.selectByVisibleText("San Francisco");
+		Thread.sleep(2000);
+		driver.findElement(By.id("Country_2_Levels addAnotherButton")).click();
+		Thread.sleep(2000);
+		select = new Select(driver.findElement(By
+				.id("Country_2_Levels dropdown MultiLevelMultiSelect 1")));
+		select.selectByVisibleText("Mexico");
+		Thread.sleep(2000);
+		select = new Select(driver.findElement(By
+				.id("Country_2_Levels dropdown MultiLevelMultiSelect 1 Mexico")));
+		select.selectByVisibleText("Mexico City");
+		Thread.sleep(2000);
+
+		// Build
+		driver.findElement(By.id("yui-gen1-button")).click();	
+		Thread.sleep(10000);
 		
-		 // Build job with Extended Choice Parameters
-		 driver.findElement(By.linkText("Build with Parameters")).click();
-		 Thread.sleep(2000);
-		
-		 // Select from multi-level dropdown lists
-		 select = new Select(driver.findElement(By.id("Country_2_Levels dropdown MultiLevelMultiSelect 0")));
-		 select.selectByVisibleText("United States");
-		 Thread.sleep(2000);
-		 select = new Select(driver.findElement(By.id("Country_2_Levels dropdown MultiLevelMultiSelect 0 United States")));
-		 select.selectByVisibleText("San Francisco");
-		 Thread.sleep(2000);
-		 driver.findElement(By.id("Country_2_Levels addAnotherButton")).click();
-		 Thread.sleep(2000);
-		 select = new Select(driver.findElement(By.id("Country_2_Levels dropdown MultiLevelMultiSelect 1")));
-		 select.selectByVisibleText("Mexico");
-		 Thread.sleep(2000);
-		 select = new Select(driver.findElement(By.id("Country_2_Levels dropdown MultiLevelMultiSelect 1 Mexico")));
-		 select.selectByVisibleText("Mexico City");
-		 Thread.sleep(2000);
-		 // Build
-		 driver.findElement(By.id("yui-gen1-button")).click();
-		 Thread.sleep(10000);	
-	}
+		// Check successful build
+		element = driver.findElement(By.className("build-status-link"));
+		Assert.assertTrue(element.findElements(By.xpath("//img[@alt='Success > Console Output']")).size() == 2);
 	
+	}
+
 	@Test(dependsOnMethods = { "buildJob" })
 	public void checkConsoleOutput() throws InterruptedException {
-		 // Check Console Output
-		 driver.findElement(By.className("build-status-link")).click();
-		 Thread.sleep(10000);
 		
-
+		// Check Console Output
+		element.click();
+		Thread.sleep(10000);
+		element = driver.findElement(By.className("console-output"));
+		Assert.assertTrue(element.getText().contains("1:United States,San Francisco:2:Mexico,Mexico City:"));
 	}
 
-	 @AfterTest
-	 public void deleteJobAndFinish() throws InterruptedException {
-		 // Delete Extended-Test-Auto job
-		 driver.findElement(By.linkText("Extended-Test-Auto")).click();
-		 Thread.sleep(3000);
-		 driver.findElement(By.linkText("Delete Project")).click();
-		 Thread.sleep(2000);
-		 driver.switchTo().alert().accept();
-		 Thread.sleep(3000);
-		 
-		 // Done
-		 driver.close();
-		 driver.quit();
-	 }
+	@AfterTest
+	public void deleteJobAndFinish() throws InterruptedException {
+		// Delete Extended-Test-Auto job
+		driver.findElement(By.linkText("Extended-Test-Auto")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.linkText("Delete Project")).click();
+		Thread.sleep(2000);
+		driver.switchTo().alert().accept();
+		Thread.sleep(3000);
+
+		// Done
+		driver.close();
+		driver.quit();
+	}
 
 }

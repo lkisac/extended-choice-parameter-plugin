@@ -5,8 +5,13 @@
     <classes>
       <class name="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG">
         <methods>
+          <include name="buildJob"/>
+          <include name="checkConsoleOutput"/>
           <include name="init"/>
+          <include name="deleteJobAndFinish"/>
           <include name="createNewJob"/>
+          <include name="configureJob"/>
+          <include name="login"/>
         </methods>
       </class> <!-- com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG -->
     </classes>
