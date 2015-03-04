@@ -30,10 +30,12 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 	List<WebElement> elements;
 	Select select;
 	String jenkinsUrl = "http://localhost:9090";
+	String chromeDriverExe = "C:/WebDrivers/chromedriver.exe";
+	String user[] = {"admin", "admin"};
 
 	@BeforeTest
 	public void init() {
-		file = new File("C:/WebDrivers/chromedriver.exe");
+		file = new File(chromeDriverExe);
 		// Set the system property indicated by the specified key.
 		System.setProperty("webdriver.chrome.driver", file.getAbsolutePath());
 		options = new ChromeOptions();
@@ -55,9 +57,9 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 	public void login() throws InterruptedException {
 		driver.findElement(By.linkText("log in")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.id("j_username")).sendKeys("admin");
+		driver.findElement(By.id("j_username")).sendKeys(user[0]);
 		Thread.sleep(1000);
-		driver.findElement(By.name("j_password")).sendKeys("admin");
+		driver.findElement(By.name("j_password")).sendKeys(user[1]);
 		driver.findElement(By.id("yui-gen1-button")).click();
 		Thread.sleep(1000);
 
