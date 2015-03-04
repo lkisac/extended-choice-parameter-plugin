@@ -16,6 +16,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+/**
+ * @author Len Isac
+ *
+ */
 public class ExtendedChoiceParameterSeleniumTestNG {
 
 	File file;
@@ -134,22 +138,17 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		driver.findElement(By.linkText("Extended Choice Parameter")).click();
 		Thread.sleep(2000);
 		size = driver.findElements(By.name("_.name")).size();
-		for (int i = 0; i < size; i++) {
-			element = driver.findElements(By.name("_.name")).get(i);
-			if ("".equals(element.getText()) && i == 1) {
-				element.sendKeys("Country_3_Levels");
-				break;
-			}
+		element = driver.findElements(By.name("_.name")).get(1);
+		if ("".equals(element.getText())) {
+			element.sendKeys("Country_3_Levels");
 		}
 		Thread.sleep(2000);
 
-		size = driver
-				.findElements(
+		size = driver.findElements(
 						By.xpath("//input[@type='radio'][./ancestor-or-self::label[contains(., 'Complex Parameter Types')]]"))
 				.size();
 		for (int i = 0; i < size; i++) {
-			element = driver
-					.findElements(
+			element = driver.findElements(
 							By.xpath("//input[@type='radio'][./ancestor-or-self::label[contains(., 'Complex Parameter Types')]]"))
 					.get(i);
 			if (!element.isSelected()) {
@@ -158,30 +157,27 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		}
 		Thread.sleep(2000);
 		size = driver.findElements(By.xpath("//select[@name='type']")).size();
-		for (int i = 0; i < size; i++) {
-			element = driver.findElements(By.xpath("//select[@name='type']")).get(i);
+		element = driver.findElements(By.xpath("//select[@name='type']")).get(3);
 
-			if (element.isDisplayed() && i == 3) {
-				select = new Select(element);
-				select.selectByVisibleText("Multi-Level Multi Select");
-				Thread.sleep(2000);
-				elements = driver.findElements(By.name("_.propertyFile"));
-				Iterator<WebElement> iter = elements.iterator();
-				while (iter.hasNext()) {
-					element = iter.next();
-				}
-				Thread.sleep(1000);
-				element.sendKeys("http://localhost:9090/job/Extended-Test-Auto/ws/countries1.txt");
-				Thread.sleep(2000);
-				elements = driver.findElements(By.name("_.propertyValue"));
-				iter = elements.iterator();
-				while (iter.hasNext()) {
-					element = iter.next();
-				}
-				Thread.sleep(1000);
-				element.sendKeys("Country,City,Hotel");
-				break;
+		if (element.isDisplayed()) {
+			select = new Select(element);
+			select.selectByVisibleText("Multi-Level Multi Select");
+			Thread.sleep(2000);
+			elements = driver.findElements(By.name("_.propertyFile"));
+			Iterator<WebElement> iter = elements.iterator();
+			while (iter.hasNext()) {
+				element = iter.next();
 			}
+			Thread.sleep(1000);
+			element.sendKeys("http://localhost:9090/job/Extended-Test-Auto/ws/countries1.txt");
+			Thread.sleep(2000);
+			elements = driver.findElements(By.name("_.propertyValue"));
+			iter = elements.iterator();
+			while (iter.hasNext()) {
+				element = iter.next();
+			}
+			Thread.sleep(1000);
+			element.sendKeys("Country,City,Hotel");
 		}
 		Thread.sleep(2000);
 
@@ -201,7 +197,7 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 								+ "# Create config files\n#Country 3 levels\necho -e 'Country\\tCity\\tHotel\\nUnited States\\tSan Francisco\\tRedwood Inn\\nUnited States\\tSan Francisco\\tFour Seasons\\nUnited States\\tChicago\\tSheraton\\nUnited States\\tChicago\\tThe Drake\\nMexico\\tMexico City\\tGran Hotel\\nMexico\\tMexico City\\tJW Marriott\\nMexico\\tCancun\\tSun Palace\\tGrand Oasis' > countries1.txt\n");
 		driver.findElement(By.xpath("//textarea[@name='command']")).sendKeys(
 				"\n# Display select choices in second build\necho ${Country_2_Levels}\n"
-				+ "echo ${Country_3_Levels}\n");
+						+ "echo ${Country_3_Levels}\n");
 		Thread.sleep(2000);
 		// Add Build Step 'Execute Windows batch command'
 		element = driver.findElement(By
@@ -292,9 +288,8 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		select.selectByVisibleText("Mexico City");
 		Thread.sleep(2000);
 		// 2.3
-		select = new Select(
-				driver.findElement(By
-						.id("Country_3_Levels dropdown MultiLevelMultiSelect 1 Mexico Mexico City")));
+		select = new Select(driver.findElement(By
+				.id("Country_3_Levels dropdown MultiLevelMultiSelect 1 Mexico Mexico City")));
 		select.selectByVisibleText("Gran Hotel");
 		Thread.sleep(2000);
 		driver.findElement(By.id("Country_3_Levels addAnotherButton")).click();
@@ -336,8 +331,10 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 		element = driver.findElement(By.className("console-output"));
 		Assert.assertTrue(element.getText().contains(
 				"1:United States,San Francisco:2:Mexico,Mexico City:"));
-		Assert.assertTrue(element.getText().contains(
-				"1:United States,San Francisco,Redwood Inn:2:Mexico,Mexico City,Gran Hotel:3:United States,Chicago,Sheraton:"));
+		Assert.assertTrue(element
+				.getText()
+				.contains(
+						"1:United States,San Francisco,Redwood Inn:2:Mexico,Mexico City,Gran Hotel:3:United States,Chicago,Sheraton:"));
 
 	}
 

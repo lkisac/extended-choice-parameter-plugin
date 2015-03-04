@@ -2,40 +2,40 @@
 <testng-results skipped="0" failed="0" total="6" passed="6">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="156523" started-at="2015-03-03T21:12:38Z" finished-at="2015-03-03T21:15:15Z">
+  <suite name="Default suite" duration-ms="175876" started-at="2015-03-04T20:52:37Z" finished-at="2015-03-04T20:55:33Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="156523" started-at="2015-03-03T21:12:38Z" finished-at="2015-03-03T21:15:15Z">
+    <test name="Default test" duration-ms="175876" started-at="2015-03-04T20:52:37Z" finished-at="2015-03-04T20:55:33Z">
       <class name="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG">
-        <test-method status="PASS" signature="init()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="init" is-config="true" duration-ms="1942" started-at="2015-03-03T16:12:38Z" finished-at="2015-03-03T16:12:40Z">
+        <test-method status="PASS" signature="init()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="init" is-config="true" duration-ms="1739" started-at="2015-03-04T15:52:37Z" finished-at="2015-03-04T15:52:39Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- init -->
-        <test-method status="PASS" signature="loadJenkinsInstance()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="loadJenkinsInstance" duration-ms="3929" started-at="2015-03-03T16:12:40Z" finished-at="2015-03-03T16:12:44Z">
+        <test-method status="PASS" signature="loadJenkinsInstance()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="loadJenkinsInstance" duration-ms="20403" started-at="2015-03-04T15:52:39Z" finished-at="2015-03-04T15:53:00Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- loadJenkinsInstance -->
-        <test-method status="PASS" signature="login()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="login" duration-ms="4726" started-at="2015-03-03T16:12:44Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.loadJenkinsInstance" finished-at="2015-03-03T16:12:49Z">
+        <test-method status="PASS" signature="login()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="login" duration-ms="5088" started-at="2015-03-04T15:53:00Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.loadJenkinsInstance" finished-at="2015-03-04T15:53:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- login -->
-        <test-method status="PASS" signature="createNewJob()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="createNewJob" duration-ms="6929" started-at="2015-03-03T16:12:49Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.login" finished-at="2015-03-03T16:12:56Z">
+        <test-method status="PASS" signature="createNewJob()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="createNewJob" duration-ms="7821" started-at="2015-03-04T15:53:05Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.login" finished-at="2015-03-04T15:53:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- createNewJob -->
-        <test-method status="PASS" signature="configureJob()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="configureJob" duration-ms="62544" started-at="2015-03-03T16:12:56Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.createNewJob" finished-at="2015-03-03T16:13:59Z">
+        <test-method status="PASS" signature="configureJob()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="configureJob" duration-ms="63068" started-at="2015-03-04T15:53:12Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.createNewJob" finished-at="2015-03-04T15:54:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- configureJob -->
-        <test-method status="PASS" signature="buildJob()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="buildJob" duration-ms="55528" started-at="2015-03-03T16:13:59Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.configureJob" finished-at="2015-03-03T16:14:54Z">
+        <test-method status="PASS" signature="buildJob()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="buildJob" duration-ms="56693" started-at="2015-03-04T15:54:16Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.configureJob" finished-at="2015-03-04T15:55:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- buildJob -->
-        <test-method status="PASS" signature="checkConsoleOutput()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="checkConsoleOutput" duration-ms="10274" started-at="2015-03-03T16:14:54Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.buildJob" finished-at="2015-03-03T16:15:04Z">
+        <test-method status="PASS" signature="checkConsoleOutput()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="checkConsoleOutput" duration-ms="10417" started-at="2015-03-04T15:55:12Z" depends-on-methods="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.buildJob" finished-at="2015-03-04T15:55:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkConsoleOutput -->
-        <test-method status="PASS" signature="deleteJobAndFinish()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="deleteJobAndFinish" is-config="true" duration-ms="10636" started-at="2015-03-03T16:15:04Z" finished-at="2015-03-03T16:15:15Z">
+        <test-method status="PASS" signature="deleteJobAndFinish()[pri:0, instance:com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG@6e1ec318]" name="deleteJobAndFinish" is-config="true" duration-ms="10631" started-at="2015-03-04T15:55:23Z" finished-at="2015-03-04T15:55:33Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- deleteJobAndFinish -->
