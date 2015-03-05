@@ -198,7 +198,7 @@ public class ExtendedChoiceParameterSeleniumTestNG {
 						"# Create config files\n#Country 2 levels\necho -e 'Country\\tCity\\nUnited States\\tSan Francisco\\nUnited States\\tChicago\\nMexico\\tMexico City\\nMexico\\tCancun' > countries.txt\n\n"
 								+ "# Create config files\n#Country 3 levels\necho -e 'Country\\tCity\\tHotel\\nUnited States\\tSan Francisco\\tRedwood Inn\\nUnited States\\tSan Francisco\\tFour Seasons\\nUnited States\\tChicago\\tSheraton\\nUnited States\\tChicago\\tThe Drake\\nMexico\\tMexico City\\tGran Hotel\\nMexico\\tMexico City\\tJW Marriott\\nMexico\\tCancun\\tSun Palace\\tGrand Oasis' > countries1.txt\n");
 		driver.findElement(By.xpath("//textarea[@name='command']")).sendKeys(
-				"\n# Display select choices in second build\necho ${Country_2_Levels}\n"
+				"\n# Display selected choices in second build\necho ${Country_2_Levels}\n"
 						+ "echo ${Country_3_Levels}\n");
 		Thread.sleep(2000);
 		// Add Build Step 'Execute Windows batch command'

@@ -152,7 +152,6 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 			description = formData.getString("description");
 
 			JSONObject parameterGroup = formData.getJSONObject("parameterGroup");
-			System.out.println(parameterGroup.toString());
 			if(parameterGroup != null) {
 				int value = parameterGroup.getInt("value");
 				if(value == 0) {
@@ -349,7 +348,6 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 	@Override
 	public ParameterValue createValue(StaplerRequest request, JSONObject jO) {
 		Object value = jO.get("value");
-		System.out.println("value: " + value.toString());
 		String strValue = "";
 		Map<Integer, String> allCols = new HashMap<Integer, String>();		
 		

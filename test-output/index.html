@@ -23,7 +23,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -37,7 +37,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-Default_suite">
-              <span class="suite-name border-passed">Default suite</span>
+              <span class="suite-name border-failed">Default suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -48,7 +48,7 @@
               <ul>
                 <li>
                   <a href="#" class="navigator-link " panel-name="test-xml-Default_suite">
-                    <span>C:\Users\if993276.DSTCORFAX\AppData\Local\Temp\testng-eclipse-1856397344\testng-customsuite.xml</span>
+                    <span>C:\Users\if993276.DSTCORFAX\AppData\Local\Temp\testng-eclipse-359974104\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -90,7 +90,35 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">6 methods,   6 passed</span>
+                    <span class="method-stats">6 methods, 1 failed,  1 skipped,  4 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods failed suite-Default_suite"> (hide)</a> <!-- hide-methods failed suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods failed suite-Default_suite"> (show)</a> <!-- show-methods failed suite-Default_suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Default_suite">
+                      <span>
+                        <img width="3%" src="failed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG" hash-for-method="buildJob">buildJob</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Default_suite -->
+                  </li>
+                  <li>
+                    <span class="method-list-title skipped">Skipped methods</span>
+                    <span class="show-or-hide-methods skipped">
+                      <a href="#" panel-name="suite-Default_suite" class="hide-methods skipped suite-Default_suite"> (hide)</a> <!-- hide-methods skipped suite-Default_suite -->
+                      <a href="#" panel-name="suite-Default_suite" class="show-methods skipped suite-Default_suite"> (show)</a> <!-- show-methods skipped suite-Default_suite -->
+                    </span>
+                    <div class="method-list-content skipped suite-Default_suite">
+                      <span>
+                        <img width="3%" src="skipped.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG" hash-for-method="checkConsoleOutput">checkConsoleOutput</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content skipped suite-Default_suite -->
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -99,16 +127,6 @@
                       <a href="#" panel-name="suite-Default_suite" class="show-methods passed suite-Default_suite"> (show)</a> <!-- show-methods passed suite-Default_suite -->
                     </span>
                     <div class="method-list-content passed suite-Default_suite">
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG" hash-for-method="buildJob">buildJob</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG" hash-for-method="checkConsoleOutput">checkConsoleOutput</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-Default_suite" title="com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG" hash-for-method="configureJob">configureJob</a> <!-- method navigator-link -->
@@ -141,9 +159,9 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Default_suite" class="panel Default_suite">
-          <div class="suite-Default_suite-class-passed">
+          <div class="suite-Default_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
+              <img src="failed.png"/>
               <span class="class-name">com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
@@ -152,8 +170,64 @@
                   <a name="buildJob">
                   </a> <!-- buildJob -->
                   <span class="method-name">buildJob</span>
+                  <div class="stack-trace">org.openqa.selenium.NoSuchElementException: no such element
+  (Session info: chrome=40.0.2214.115)
+  (Driver info: chromedriver=2.14.313457 (3d645c400edf2e2c500566c9aa096063e707c9cf),platform=Windows NT 6.1 SP1 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 62 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: &apos;2.44.0&apos;, revision: &apos;76d78cf323ce037c5f92db6c1bba601c2ac43ad8&apos;, time: &apos;2014-10-23 13:11:40&apos;
+System info: host: &apos;IFDS3965&apos;, ip: &apos;172.18.75.125&apos;, os.name: &apos;Windows 7&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;6.1&apos;, java.version: &apos;1.8.0_11&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, chrome={userDataDir=C:\Users\IF9932~1.DST\AppData\Local\Temp\scoped_dir5004_2281}, takesHeapSnapshot=true, databaseEnabled=false, handlesAlerts=true, version=40.0.2214.115, platform=XP, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true}]
+Session ID: 2e8bc18f8340d403c80b25826495098b
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:408)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:204)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:156)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:599)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:352)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByLinkText(RemoteWebDriver.java:401)
+	at org.openqa.selenium.By$ByLinkText.findElement(By.java:242)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:344)
+	at com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG.buildJob(ExtendedChoiceParameterSeleniumTestNG.java:239)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:483)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:111)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:204)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:175)
+
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-failed -->
+          <div class="suite-Default_suite-class-skipped">
+            <div class="main-panel-header rounded-window-top">
+              <img src="skipped.png"/>
+              <span class="class-name">com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
                   <a name="checkConsoleOutput">
@@ -161,6 +235,14 @@
                   <span class="method-name">checkConsoleOutput</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Default_suite-class-skipped -->
+          <div class="suite-Default_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
                   <a name="configureJob">
@@ -194,7 +276,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\if993276.DSTCORFAX\AppData\Local\Temp\testng-eclipse-1856397344\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\if993276.DSTCORFAX\AppData\Local\Temp\testng-eclipse-359974104\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -247,32 +329,32 @@ data.addRows(6);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'configureJob')
 data.setCell(0, 2, 'com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG')
-data.setCell(0, 3, 63068);
+data.setCell(0, 3, 66843);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'buildJob')
 data.setCell(1, 2, 'com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG')
-data.setCell(1, 3, 56693);
+data.setCell(1, 3, 9583);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'loadJenkinsInstance')
+data.setCell(2, 1, 'createNewJob')
 data.setCell(2, 2, 'com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG')
-data.setCell(2, 3, 20403);
+data.setCell(2, 3, 7086);
 data.setCell(3, 0, 3)
-data.setCell(3, 1, 'checkConsoleOutput')
+data.setCell(3, 1, 'login')
 data.setCell(3, 2, 'com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG')
-data.setCell(3, 3, 10417);
+data.setCell(3, 3, 4796);
 data.setCell(4, 0, 4)
-data.setCell(4, 1, 'createNewJob')
+data.setCell(4, 1, 'loadJenkinsInstance')
 data.setCell(4, 2, 'com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG')
-data.setCell(4, 3, 7821);
+data.setCell(4, 3, 3742);
 data.setCell(5, 0, 5)
-data.setCell(5, 1, 'login')
+data.setCell(5, 1, 'checkConsoleOutput')
 data.setCell(5, 2, 'com.cwctravel.hudson.plugins.extended_choice_parameter.ExtendedChoiceParameterSeleniumTestNG')
-data.setCell(5, 3, 5088);
+data.setCell(5, 3, 1);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 2 minutes</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -305,31 +387,31 @@ return data;
               </div> <!-- configuration-test before -->
               <div class="test-method">
                 <span class="method-name">loadJenkinsInstance</span>
-                <span class="method-start">1744 ms</span>
+                <span class="method-start">2005 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">login</span>
-                <span class="method-start">22151 ms</span>
+                <span class="method-start">5752 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">createNewJob</span>
-                <span class="method-start">27240 ms</span>
+                <span class="method-start">10549 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">configureJob</span>
-                <span class="method-start">35063 ms</span>
+                <span class="method-start">17637 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
+                <img src="failed.png">
+                </img>
                 <span class="method-name">buildJob</span>
-                <span class="method-start">98133 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">checkConsoleOutput</span>
-                <span class="method-start">154826 ms</span>
+                <span class="method-start">84482 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-test after">
+                <img src="failed.png">
+                </img>
                 <span class="method-name">deleteJobAndFinish</span>
-                <span class="method-start">165243 ms</span>
+                <span class="method-start">94072 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
