@@ -15,7 +15,7 @@ public class ExtendedChoiceParameterMock {
 	@Test
 	public void testCreateValueTwoLevels() {
 		ExtendedChoiceParameterDefinition definitionObj = new ExtendedChoiceParameterDefinition("Country_2_Levels", "PT_MULTI_LEVEL_MULTI_SELECT", "Country,City", null, null, null, null, null, null, null, null, null, null, null, false, 0, null, null);
-		StaplerRequest request = null;
+		StaplerRequest request = EasyMock.createMock(StaplerRequest.class);
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArr = new JSONArray();
 
@@ -39,7 +39,7 @@ public class ExtendedChoiceParameterMock {
 	@Test
 	public void testCreateValueThreeLevels() {
 		ExtendedChoiceParameterDefinition definitionObj = new ExtendedChoiceParameterDefinition("Country_3_Levels", "PT_MULTI_LEVEL_MULTI_SELECT", "Country,City,Street", null, null, null, null, null, null, null, null, null, null, null, false, 0, null, null);
-		StaplerRequest request = null;
+		StaplerRequest request = EasyMock.createMock(StaplerRequest.class);
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArr = new JSONArray();
 		
