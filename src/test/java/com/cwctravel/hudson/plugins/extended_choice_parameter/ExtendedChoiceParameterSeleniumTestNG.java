@@ -1,6 +1,10 @@
-package com.cwctravel.hudson.plugins.extended_choice_parameter;
+/*
+ *Copyright (c) 2015 Len Isac
+ *See the file license.txt for copying permission.
+ */
 
-//import org.testng.annotations.Test;
+
+package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import java.io.File;
 import java.util.Iterator;

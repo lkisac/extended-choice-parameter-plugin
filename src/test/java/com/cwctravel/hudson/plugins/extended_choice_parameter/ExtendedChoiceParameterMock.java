@@ -1,3 +1,9 @@
+/*
+ *Copyright (c) 2015 Len Isac
+ *See the file license.txt for copying permission.
+ */
+
+
 package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import hudson.model.ParameterValue;
