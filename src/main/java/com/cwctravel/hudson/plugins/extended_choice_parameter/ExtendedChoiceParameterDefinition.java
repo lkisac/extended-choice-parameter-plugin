@@ -347,18 +347,24 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 
 	@Override
 	public ParameterValue createValue(StaplerRequest request, JSONObject jO) {
+		System.out.println("Inside createValue()");
 		Object value = jO.get("value");
+		System.out.println("value: " + value.toString());
 		String strValue = "";
 		Map<Integer, String> allCols = new HashMap<Integer, String>();		
 		
 		if(value instanceof String) {
+			System.out.println("value is instanceof String");
 			strValue = (String)value;
 		}
 		else if(value instanceof JSONArray) {
+			System.out.println("value is instanceof JSONArray");
 			int multiLevelColumns = 0;
 			JSONArray jsonValues = (JSONArray)value;
 			if(type.equals(PARAMETER_TYPE_MULTI_LEVEL_SINGLE_SELECT) || type.equals(PARAMETER_TYPE_MULTI_LEVEL_MULTI_SELECT)) {
+				System.out.println("type equals PARAMETER_TYPE_MULTI_LEVEL_SINGLE_SELECT or PARAMETER_TYPE_MULTI_LEVEL_MULTI_SELECT");
 				final int valuesBetweenLevels = this.value.split(",").length;
+				System.out.println("this.value: " + this.value);
 				multiLevelColumns = valuesBetweenLevels;
 				
 				Iterator<?> it = jsonValues.iterator();
@@ -398,6 +404,7 @@ public class ExtendedChoiceParameterDefinition extends ParameterDefinition {
 				}
 			}
 			strValue = strCols.toString();
+			System.out.println("Concatenated strValue: " + strValue);
 		}
 
 		if(quoteValue) {
