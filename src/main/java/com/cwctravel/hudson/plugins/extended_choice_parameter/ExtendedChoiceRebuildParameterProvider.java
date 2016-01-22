@@ -2,7 +2,7 @@
  *Copyright (c) 2015 Len Isac
  *See the file license.txt for copying permission.
  */
-package main.java.com.cwctravel.hudson.plugins.extended_choice_parameter;
+package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import hudson.Extension;
 import hudson.model.ParameterValue;

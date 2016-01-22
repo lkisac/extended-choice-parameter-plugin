@@ -4,7 +4,7 @@
  */
 
 
-package main.java.com.cwctravel.hudson.plugins.extended_choice_parameter;
+package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import org.kohsuke.stapler.DataBoundConstructor;
 

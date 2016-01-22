@@ -4,7 +4,7 @@
  *See the file license.txt for copying permission.
  */
 
-package main.java.com.cwctravel.hudson.plugins.extended_choice_parameter;
+package com.cwctravel.hudson.plugins.extended_choice_parameter;
 
 import groovy.lang.GroovyShell;
 import hudson.Extension;
